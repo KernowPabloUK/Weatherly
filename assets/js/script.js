@@ -107,36 +107,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     );
                     document.querySelector(
                         `#card${i + 1} .description`
-                    ).innerHTML = `${descriptionCapitalised}`;
+                    ).innerHTML = `<strong>${descriptionCapitalised}</strong>`;
 
                     // Metrics Section
                     document.querySelector(
                         `#card${i + 1} .temp`
-                    ).textContent = `${Math.round(
+                    ).innerHTML = `<strong>${Math.round(
                         data.list[i * 8].main.temp
-                    )}°C`;
-                    document.querySelector(
-                        `#card${i + 1} .sunrise`
-                    ).innerHTML = `Sunrise<br /><strong>${convertUnixTimeToDateTime(
-                        data.city.sunrise
-                    )}<strong>`;
-                    document.querySelector(
-                        `#card${i + 1} .sunset`
-                    ).innerHTML = `Sunset<br /><strong>${convertUnixTimeToDateTime(
-                        data.city.sunset
-                    )}<strong>`;
-                    document.querySelector(
-                        `#card${i + 1} .wind-direction`
-                    ).innerHTML = `Wind Direction<br /><strong>${calculateClosestWindDirection(
-                        data,
-                        i,
-                        windDirections
-                    )}<strong>`;
-                    document.querySelector(
-                        `#card${i + 1} .wind-speed`
-                    ).innerHTML = `Wind Speed<br /><strong>${(
-                        data.list[i * 8].wind.speed * 2.23694
-                    ).toFixed(1)} mph<strong>`;
+                    )}°C</strong>`;
+                    
+                    document.querySelector(`#card${i + 1} .sunrise`).innerHTML = `Sunrise<br /><strong>${convertUnixTimeToDateTime(data.city.sunrise)}</strong>`;
+                    document.querySelector(`#card${i + 1} .sunset`).innerHTML = `Sunset<br /><strong>${convertUnixTimeToDateTime(data.city.sunset)}</strong>`;
+                    document.querySelector(`#card${i + 1} .wind-direction`).innerHTML = `Wind Direction<br /><strong>${calculateClosestWindDirection(data,i,windDirections)}</strong>`;
+                    document.querySelector(`#card${i + 1} .wind-speed`).innerHTML = `Wind Speed<br /><strong>${(data.list[i * 8].wind.speed * 2.23694).toFixed(1)} mph</strong>`;
                 }
             } else {
                 document.querySelector(
