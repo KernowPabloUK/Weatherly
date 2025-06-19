@@ -1,6 +1,31 @@
 document.addEventListener("DOMContentLoaded", function () {
     const apiKey = "0acafacede1fa597f8b4258fff3abb0d";
 
+    const weekdays = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+    ];
+
+    const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+
     const submitButton = document.querySelector("#submit");
 
     submitButton.addEventListener("click", getWeather);
@@ -24,7 +49,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 for (let i = 0; i < 5; i++) {
                     document.querySelector(
                         `#card${i + 1} .dayOfTheWeek`
-                    ).innerHTML = `${data.list[i * 8].dt_txt}`;
+                    ).innerHTML = `${
+                        weekdays[new Date(data.list[i * 8].dt_txt).getDay()]
+                    } ${new Date(data.list[i * 8].dt_txt).getDate()} ${
+                        months[new Date(data.list[0].dt_txt).getMonth()]
+                    }`;
                 }
             } else {
                 document.querySelector(
