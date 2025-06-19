@@ -27,7 +27,7 @@
         <h1 class="my-4 text-center">Weatherly</h1>
         <!-- TODO: Inputs - Location = TextInput / Forecast Daily/Hourly = Dropdown -->
         <div class="row justify-content-center">
-            <input class="col-4 mb-2" type="text">
+            <input id="locationInput" class="col-4 mb-2" type="text">
             <div class="row justify-content-center text-center">
                 <label for="forecast">Select forecast type:</label>
                 <select class="col-4 text-center mt-2" name="forecast" id="forecast">
@@ -35,21 +35,22 @@
                     <option value="hourly">Hourly</option>
                 </select>
             </div>
+            <button id="submit" class="col-4 my-3">Submit</button>
         </div>
 
 
         <!-- TODO: Daily Forecast - Horizontal Cards - Image (weather icon) left column 6 - col 6 right ==> temp top row / metrics bottom row  - Header above with day/hour -->
-         <!-- center cards, but not content -->
+        <!-- center cards, but not content -->
         <!-- https://getbootstrap.com/docs/5.3/components/card/#horizontal -->
 
-        <div class="card my-3" style="max-width: 540px;">
+        <div id="card1" class="card my-3" style="max-width: 540px;">
             <div class="row g-0">
                 <div class="col-4 text-center align-content-center">
                     <div><i class="fa-solid fa-cloud fa-4x"></i></div>
                 </div>
                 <div class="col-8">
                     <div class="card-body row">
-                        <p class="card-title">% Day Of The Week %</p>
+                        <p class="dayOfTheWeek card-title">% Day Of The Week %</p>
                         <div class="col-6">
                             <p class="card-text">% 18 degrees %</p>
                         </div>
@@ -162,6 +163,9 @@
         crossorigin="anonymous"></script>
     <!-- Font Awesome Script -->
     <script src="https://kit.fontawesome.com/8669560caa.js" crossorigin="anonymous"></script>
+
+    <!-- JavaScript -->
+    <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
