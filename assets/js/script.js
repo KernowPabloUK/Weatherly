@@ -1,29 +1,45 @@
-const apiKey = "0acafacede1fa597f8b4258fff3abb0d";
+document.addEventListener("DOMContentLoaded", function () {
+    const apiKey = "0acafacede1fa597f8b4258fff3abb0d";
 
-async function getWeather() {
-    const city = document.getElementById("cityInput").value;
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    const submitButton = document.querySelector("#submit");
 
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
+    submitButton.addEventListener("click", getWeather);
 
-        if (data.cod === 200) {
-            document.getElementById("weatherResult").innerHTML = `
-        <h2>${data.name}, ${data.sys.country}</h2>
-        <p>Temperature: ${data.main.temp}°C</p>
-        <p>Weather: ${data.weather[0].description}</p>
-        <p>Humidity: ${data.main.humidity}%</p>
-        <p>Wind Speed: ${data.wind.speed} m/s</p>
-      `;
-        } else {
-            document.getElementById(
-                "weatherResult"
-            ).innerHTML = `<p>City not found.</p>`;
+    async function getWeather() {
+        const location = document.querySelector("#locationInput").value;
+        const urlGeo = `http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${apiKey}`;
+
+        const responseGeo = await fetch(urlGeo);
+        const dataGeo = await responseGeo.json();
+
+        const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${dataGeo[0].lat}&lon=${dataGeo[0].lon}&appid=${apiKey}`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            console.log(data);
+
+            if (data.cod == 200) {
+                document.querySelector(
+                    ".dayOfTheWeek"
+                ).innerHTML = `${data.list[0].dt_txt}`;
+            } else {
+                document.querySelector(
+                    "#card1 .dayOfTheWeek"
+                ).innerHTML = `<p>Location not found.</p>`;
+            }
+        } catch (error) {
+            document.querySelector(
+                "#card1 .dayOfTheWeek"
+            ).innerHTML = `<p>Error fetching data.</p>`;
         }
-    } catch (error) {
-        document.getElementById(
-            "weatherResult"
-        ).innerHTML = `<p>Error fetching data.</p>`;
     }
-}
+    // All code above this line
+});
+
+// Location
+// <h2>${data.name}, ${data.sys.country}</h2>
+// <p>Temperature: ${data.main.temp}°C</p>
+//        <p>Weather: ${data.weather[0].description}</p>
+//      <p>Humidity: ${data.main.humidity}%</p>
+//    <p>Wind Speed: ${data.wind.speed} m/s</p>
