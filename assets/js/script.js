@@ -54,6 +54,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     } ${new Date(data.list[i * 8].dt_txt).getDate()} ${
                         months[new Date(data.list[0].dt_txt).getMonth()]
                     }`;
+                    document.querySelector(
+                        `#card${i + 1} .temp`
+                    ).textContent = `${Math.round(
+                        data.list[i * 8].main.temp
+                    )}°C`;
                 }
                 document.querySelector(
                     "#card1 .dayOfTheWeek"
