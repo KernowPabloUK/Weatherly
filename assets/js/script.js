@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const responseGeo = await fetch(urlGeo);
         const dataGeo = await responseGeo.json();
 
-        const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${dataGeo[0].lat}&lon=${dataGeo[0].lon}&appid=${apiKey}`;
+        const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${dataGeo[0].lat}&lon=${dataGeo[0].lon}&appid=${apiKey}&units=metric`;
 
         try {
             const response = await fetch(url);
@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         `#card${i + 1} .dayOfTheWeek`
                     ).innerHTML = `${data.list[i * 8].dt_txt}`;
                 }
-            } else {
                 document.querySelector(
                     "#card1 .dayOfTheWeek"
                 ).innerHTML = `<p>Location not found.</p>`;
