@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //#region Global Variables
     const apiKey = "0acafacede1fa597f8b4258fff3abb0d";
     const submitButton = document.querySelector("#submit");
-  
+
     const weekdays = [
         "Sunday",
         "Monday",
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "Friday",
         "Saturday",
     ];
-  
+
     const months = [
         "January",
         "February",
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "November",
         "December",
     ];
-  
+
     const windDirections = {
         10: "N",
         20: "N/NE",
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
         210: "S/SW",
         220: "SW",
         230: "SW",
-        240: "W/SW", 
+        240: "W/SW",
         250: "W/SW",
         260: "W",
         270: "W",
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
         340: "N/NW",
         350: "N",
         360: "N",
-    }
+    };
     //#endregion
 
     //#region Event Handlers
@@ -89,6 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (data.cod == 200) {
                 for (let i = 0; i < 5; i++) {
+                    // Date Section
                     document.querySelector(
                         `#card${i + 1} .dayOfTheWeek`
                     ).innerHTML = `${
@@ -96,16 +97,47 @@ document.addEventListener("DOMContentLoaded", function () {
                     } ${new Date(data.list[i * 8].dt_txt).getDate()} ${
                         months[new Date(data.list[0].dt_txt).getMonth()]
                     }`;
+
+                    // Description Section
+                    let description = data.list[i].weather[0].description;
+                    let firstLetterCapitalised = description[0].toUpperCase();
+                    let descriptionCapitalised = description.replace(
+                        description[0],
+                        firstLetterCapitalised
+                    );
+                    document.querySelector(
+                        `#card${i + 1} .description`
+                    ).innerHTML = `${descriptionCapitalised}`;
+
+                    // Metrics Section
                     document.querySelector(
                         `#card${i + 1} .temp`
                     ).textContent = `${Math.round(
                         data.list[i * 8].main.temp
                     )}°C`;
-                    document.querySelector(`#card${i + 1} .sunrise`).innerHTML = `Sunrise<br /><strong>${convertUnixTimeToDateTime(data.city.sunrise)}<strong>`;
-                    document.querySelector(`#card${i + 1} .sunset`).innerHTML = `Sunset<br /><strong>${convertUnixTimeToDateTime(data.city.sunset)}<strong>`;
-                    document.querySelector(`#card${i + 1} .wind-direction`).innerHTML = `Wind Direction<br /><strong>${calculateClosestWindDirection(data, i, windDirections)}<strong>`;
-                    document.querySelector(`#card${i + 1} .wind-speed`).innerHTML = `Wind Speed<br /><strong>${((data.list[i * 8].wind.speed) * 2.23694).toFixed(1)} mph<strong>`;
-                } 
+                    document.querySelector(
+                        `#card${i + 1} .sunrise`
+                    ).innerHTML = `Sunrise<br /><strong>${convertUnixTimeToDateTime(
+                        data.city.sunrise
+                    )}<strong>`;
+                    document.querySelector(
+                        `#card${i + 1} .sunset`
+                    ).innerHTML = `Sunset<br /><strong>${convertUnixTimeToDateTime(
+                        data.city.sunset
+                    )}<strong>`;
+                    document.querySelector(
+                        `#card${i + 1} .wind-direction`
+                    ).innerHTML = `Wind Direction<br /><strong>${calculateClosestWindDirection(
+                        data,
+                        i,
+                        windDirections
+                    )}<strong>`;
+                    document.querySelector(
+                        `#card${i + 1} .wind-speed`
+                    ).innerHTML = `Wind Speed<br /><strong>${(
+                        data.list[i * 8].wind.speed * 2.23694
+                    ).toFixed(1)} mph<strong>`;
+                }
             } else {
                 document.querySelector(
                     `.dayOfTheWeek`
@@ -117,27 +149,27 @@ document.addEventListener("DOMContentLoaded", function () {
             ).innerHTML = `<p>Error fetching data.</p>`;
         }
     }
-    
 
     function convertUnixTimeToDateTime(unixTime) {
         let date = new Date(unixTime * 1000);
-        let hours = date.getHours() > 9 ? date.getHours() : `0${date.getHours()}`;
-        let minutes = date.getMinutes().toString().padStart(2, '0');
+        let hours =
+            date.getHours() > 9 ? date.getHours() : `0${date.getHours()}`;
+        let minutes = date.getMinutes().toString().padStart(2, "0");
         return `${hours}:${minutes}`;
     }
 
     function calculateClosestWindDirection(data, iteration, windDirections) {
-    let windDirectionDegree = data.list[iteration * 8].wind.deg;
-    let closestWindDirection = null;
-    let minDiff = 360;
-    for (let windDegree in windDirections) {
-        let diff = Math.abs(windDirectionDegree - Number(windDegree));
-        if (diff < minDiff) {
-            minDiff = diff;
-            closestWindDirection = windDirections[windDegree];
+        let windDirectionDegree = data.list[iteration * 8].wind.deg;
+        let closestWindDirection = null;
+        let minDiff = 360;
+        for (let windDegree in windDirections) {
+            let diff = Math.abs(windDirectionDegree - Number(windDegree));
+            if (diff < minDiff) {
+                minDiff = diff;
+                closestWindDirection = windDirections[windDegree];
+            }
         }
-      }
-    return closestWindDirection;
+        return closestWindDirection;
     }
     //#endregion
 
