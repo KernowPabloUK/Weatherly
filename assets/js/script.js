@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.querySelector(`#card${i + 1} .wind-direction`).innerHTML = `Wind Direction<br /><strong>${calculateClosestWindDirection(data, i, windDirections)}<strong>`;
                     document.querySelector(`#card${i + 1} .wind-speed`).innerHTML = `Wind Speed<br /><strong>${((data.list[i * 8].wind.speed) * 2.23694).toFixed(1)} mph<strong>`;
                 } 
-              else {
+            } else {
                 document.querySelector(
                     `.dayOfTheWeek`
                 ).innerHTML = `<p>Location not found.</p>`;
@@ -117,6 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ).innerHTML = `<p>Error fetching data.</p>`;
         }
     }
+    
 
     function convertUnixTimeToDateTime(unixTime) {
         let date = new Date(unixTime * 1000);
