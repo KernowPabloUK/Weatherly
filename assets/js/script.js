@@ -56,7 +56,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     }`;
                     document.querySelector(
                         `#card${i + 1} .temp`
-                    ).textContent = `${data.list[i * 8].main.temp}°C`;
+                    ).textContent = `${Math.round(
+                        data.list[i * 8].main.temp
+                    )}°C`;
                 }
                 document.querySelector(
                     "#card1 .dayOfTheWeek"
