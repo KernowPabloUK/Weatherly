@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (data.cod == 200) {
                 for (let i = 0; i < 5; i++) {
+                    // Date Section
                     document.querySelector(
                         `#card${i + 1} .dayOfTheWeek`
                     ).innerHTML = `${
@@ -54,6 +55,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     } ${new Date(data.list[i * 8].dt_txt).getDate()} ${
                         months[new Date(data.list[0].dt_txt).getMonth()]
                     }`;
+                    // Description Section
+                    let description = data.list[i].weather[0].description;
+                    let firstLetterCapitalised = description[0].toUpperCase();
+                    let descriptionCapitalised = description.replace(
+                        description[0],
+                        firstLetterCapitalised
+                    );
+                    document.querySelector(
+                        `#card${i + 1} .description`
+                    ).innerHTML = `${descriptionCapitalised}`;
                 }
             } else {
                 document.querySelector(
