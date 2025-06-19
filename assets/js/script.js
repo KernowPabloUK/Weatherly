@@ -18,11 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
             const response = await fetch(url);
             const data = await response.json();
             console.log(data);
+            console.log(new Date(data.list[0].dt_txt).getDate());
 
             if (data.cod == 200) {
-                document.querySelector(
-                    ".dayOfTheWeek"
-                ).innerHTML = `${data.list[0].dt_txt}`;
+                for (let i = 0; i < 5; i++) {
+                    document.querySelector(
+                        `#card${i + 1} .dayOfTheWeek`
+                    ).innerHTML = `${data.list[i * 8].dt_txt}`;
+                }
             } else {
                 document.querySelector(
                     "#card1 .dayOfTheWeek"
