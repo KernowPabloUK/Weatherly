@@ -24,23 +24,16 @@
 
 <body>
     <div class="container">
-        <!-- TODO: Header - Centered -->
         <h1 class="my-4 text-center">Weatherly</h1>
-        <!-- TODO: Inputs - Location = TextInput / Forecast Daily/Hourly = Dropdown -->
         <div class="row justify-content-center">
             <div class="col-6 col-md-4 d-flex flex-column align-items-center">
                 <input id="locationInput" class="form-control mb-2" type="text" placeholder="Enter location">
-                <button id="submit" class="mt-2">Submit</button>
+                <button id="submit" class="mt-2 shadow btn btn-secondary">Submit</button>
             </div>
         </div>
-
-
-        <!-- TODO: Daily Forecast - Horizontal Cards - Image (weather icon) left column 6 - col 6 right ==> temp top row / metrics bottom row  - Header above with day/hour -->
-        <!-- center cards, but not content -->
-        <!-- https://getbootstrap.com/docs/5.3/components/card/#horizontal -->
         <div class="forecast-cards">
-            <div id="card1" class="card card-to-modal my-3 m-auto" style="max-width: 540px;" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
+            <div id="card1" class="card card-to-modal my-3 m-auto shadow" style="max-width: 540px;"
+                data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <div class="row g-0">
                     <div class="col-4 text-center align-content-center">
                         <div><i class="weather-icon"></i></div>
@@ -62,8 +55,8 @@
                     </div>
                 </div>
             </div>
-            <div id="card2" class="card card-to-modal my-3 m-auto" style="max-width: 540px;" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
+            <div id="card2" class="card card-to-modal my-3 m-auto shadow" style="max-width: 540px;"
+                data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <div class="row g-0">
                     <div class="col-4 text-center align-content-center">
                         <div><i class="weather-icon"></i></div>
@@ -85,8 +78,8 @@
                     </div>
                 </div>
             </div>
-            <div id="card3" class="card card-to-modal my-3 m-auto" style="max-width: 540px;" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
+            <div id="card3" class="card card-to-modal my-3 m-auto shadow" style="max-width: 540px;"
+                data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <div class="row g-0">
                     <div class="col-4 text-center align-content-center">
                         <div><i class="weather-icon"></i></div>
@@ -108,8 +101,8 @@
                     </div>
                 </div>
             </div>
-            <div id="card4" class="card card-to-modal my-3 m-auto" style="max-width: 540px;" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
+            <div id="card4" class="card card-to-modal my-3 m-auto shadow" style="max-width: 540px;"
+                data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <div class="row g-0">
                     <div class="col-4 text-center align-content-center">
                         <div><i class="weather-icon"></i></div>
@@ -131,8 +124,8 @@
                     </div>
                 </div>
             </div>
-            <div id="card5" class="card card-to-modal my-3 m-auto" style="max-width: 540px;" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
+            <div id="card5" class="card card-to-modal my-3 m-auto shadow" style="max-width: 540px;"
+                data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <div class="row g-0">
                     <div class="col-4 text-center align-content-center">
                         <div><i class="weather-icon"></i></div>
@@ -155,8 +148,6 @@
                 </div>
             </div>
         </div>
-
-
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
             <div class="modal-dialog">
@@ -167,9 +158,7 @@
             </div>
         </div>
     </div>
-
     <!-- TODO: Footer - Basic Copyright - Links to our Githubs?? - Links to weather warnings?? - Socials?? -->
-    </div>
     <!-- Bootstrap Script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"

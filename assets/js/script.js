@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     //#region Global Variables
-
+    let latestWeatherData = null;
     const apiKey = "0acafacede1fa597f8b4258fff3abb0d";
     const submitButton = document.querySelector("#submit");
     let cardToModalButtons = document.querySelectorAll(".card-to-modal");
@@ -105,6 +105,8 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             const response = await fetch(url);
             const data = await response.json();
+            latestWeatherData = data;
+
             console.log(data);
 
             if (data.cod == 200) {
@@ -147,14 +149,58 @@ document.addEventListener("DOMContentLoaded", function () {
                         .innerHTML = `Wind Speed<br /><strong>${(data.list[i * 8].wind.speed * 2.23694).toFixed(1)} mph</strong>`;
                 }
             } else {
-                document.querySelector(`.dayOfTheWeek`)
+                document.querySelector(`.dayOfTheWeek`) //Change to alert?
                     .innerHTML = `<p>Location not found.</p>`;
             }
         } catch (error) {
-            document.querySelector(`.dayOfTheWeek`)
+            document.querySelector(`.dayOfTheWeek`) //Change to alert?
                 .innerHTML = `<p>Error fetching data.</p>`;
-                
         }
+    }
+
+    function getHourlyWeatherByDay(button) {
+        const data = latestWeatherData;
+        if (!data || data.cod != 200) {
+            document.querySelector(`.dayOfTheWeek`).innerHTML = `<p>No weather data available.</p>`; //Change to alert?
+            return;
+        }
+
+        let dayText = button.closest('.card').querySelector('.dayOfTheWeek').innerText;
+        let currentCardDate = convertDateToYYYYMMDD(dayText, months);
+        let filteredList = data.list.filter(item => item.dt_txt.startsWith(currentCardDate));
+        let modalContent = `
+            <div class="modal-header" id="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">${dayText}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">`;
+        filteredList.forEach((item, index) => {
+            const iconUrl = weatherIcons[item.weather[0].icon] || '';
+            modalContent += `
+                <div id="modal-card${index + 1}" class="card my-3 m-auto shadow" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-4 text-center align-content-center">
+                            <div class="weather-icon"><img src="${iconUrl}" alt="Weather icon"></div>
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body row">
+                                <p class="time-of-day card-title"><strong>${item.dt_txt.split(' ')[1].slice(0,5)}</strong></p>
+                                <p class="description card-text"><strong>${item.weather[0].description.charAt(0).toUpperCase() + item.weather[0].description.slice(1)}</strong></p>
+                                <p class="temp card-text"><strong>${Math.round(item.main.temp)}°C</strong></p>
+                                <p class="feels-like card-text">Feels like: <strong>${Math.round(item.main.feels_like)}°C</strong></p>
+                                <p class="humidity card-text">Humidity: <strong>${item.main.humidity}%</strong></p>
+                                <p class="wind-speed card-text">Wind Speed: <strong>${(item.wind.speed * 2.23694).toFixed(1)} mph</strong></p>
+                                <p class="wind-direction card-text">Wind Direction: <strong>${calculateClosestWindDirection({list:[item]},0,windDirections)}</strong></p>
+                                <p class="wind-gust-speed card-text">Wind Gust: <strong>${item.wind.gust ? (item.wind.gust * 2.23694).toFixed(1) : 'N/A'} mph</strong></p>
+                                <p class="precipitation-percentage card-text">Precipitation: <strong>${item.pop ? Math.round(item.pop * 100) : 0}%</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        modalContent += `</div>`;
+        document.querySelector('.modal-content').innerHTML = modalContent;
     }
 
     async function getAPIDataURL(apiKey) {
@@ -199,62 +245,21 @@ document.addEventListener("DOMContentLoaded", function () {
         let currentCardDate = `${year}-${monthPadded}-${dayPadded}`;
         return currentCardDate;
     }
-
-    async function getHourlyWeatherByDay(button) {
-        const url = await getAPIDataURL(apiKey);
-
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-
-                if (data.cod == 200) {
-                    let dayText = button.closest('.card').querySelector('.dayOfTheWeek').innerText;
-                    let currentCardDate = convertDateToYYYYMMDD(dayText, months);
-                    let filteredList = data.list.filter(item => item.dt_txt.startsWith(currentCardDate));
-                    let modalContent = `
-                        <div class="modal-header" id="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">${dayText}</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">`;
-                    filteredList.forEach((item, index) => {
-                        const iconUrl = weatherIcons[item.weather[0].icon] || '';
-                        modalContent += `
-                            <div id="modal-card${index + 1}" class="card my-3 m-auto" style="max-width: 540px;">
-                                <div class="row g-0">
-                                    <div class="col-4 text-center align-content-center">
-                                        <div class="weather-icon"><img src="${iconUrl}" alt="Weather icon"></div>
-                                    </div>
-                                    <div class="col-8">
-                                        <div class="card-body row">
-                                            <p class="time-of-day card-title"><strong>${item.dt_txt.split(' ')[1].slice(0,5)}</strong></p>
-                                            <p class="description card-text"><strong>${item.weather[0].description.charAt(0).toUpperCase() + item.weather[0].description.slice(1)}</strong></p>
-                                            <p class="temp card-text"><strong>${Math.round(item.main.temp)}°C</strong></p>
-                                            <p class="feels-like card-text">Feels like: <strong>${Math.round(item.main.feels_like)}°C</strong></p>
-                                            <p class="humidity card-text">Humidity: <strong>${item.main.humidity}%</strong></p>
-                                            <p class="wind-speed card-text">Wind Speed: <strong>${(item.wind.speed * 2.23694).toFixed(1)} mph</strong></p>
-                                            <p class="wind-direction card-text">Wind Direction: <strong>${calculateClosestWindDirection({list:[item]},0,windDirections)}</strong></p>
-                                            <p class="wind-gust-speed card-text">Wind Gust: <strong>${item.wind.gust ? (item.wind.gust * 2.23694).toFixed(1) : 'N/A'} mph</strong></p>
-                                            <p class="precipitation-percentage card-text">Precipitation: <strong>${item.pop ? Math.round(item.pop * 100) : 0}%</strong></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    });
-                        modalContent += `</div>`;
-                        document.querySelector('.modal-content').innerHTML = modalContent;
-            } else {
-                document.querySelector(`.dayOfTheWeek`)
-                    .innerHTML = `<p>Location not found.</p>`;
-            }
-        } catch (error) {
-            document.querySelector(
-                `.dayOfTheWeek`
-            ).innerHTML = `<p>Error fetching data.</p>`;
-        }
-    }
     //#endregion
 
     // All code above this line
 });
+
+// TODO -------------
+
+//set default location on website load or hide cards until submit is clicked
+
+//for daily weather, ensure average or midday weather is taken to prevent night icons being used for forecasted days (not current day!)
+
+//geo location option
+
+//post code search
+
+//use enter key like a click of submit
+
+//after submit, replace typed location with the found location...eg falmouth => Falmouth, GB ........city.name + , + city.country
