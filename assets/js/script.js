@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (data.cod == 200) {
                 for (let i = 0; i < 5; i++) {
-                    let weatherIconCode = data.list[0].weather[0].icon;
+                    let weatherIconCode = data.list[i * 8].weather[0].icon;
                     let iconUrl = "";
                     for (let icon in weatherIcons) {
                         if (icon === weatherIconCode) {
