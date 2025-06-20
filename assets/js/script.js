@@ -168,7 +168,43 @@ document.querySelector(
 ).innerHTML = `<strong>Feels Like:</stong> ${Math.round(
     data.list[i * 8].main.feels_like
 )}°C`;
+document.querySelector(
+    `#card-9pm .humidity`
+).innerHTML = `<strong>Humidity:</strong> ${data.list[i * 8].main.humidity}%`;
 
+document.querySelector(
+    `#card-9pm .wind-speed`
+).innerHTML = `<strong>Wind Speed:</strong> ${(
+    data.list[i * 8].wind.speed * 2.23694
+).toFixed(1)} mph`;
+document.querySelector(
+    `#card-9pm .wind-direction`
+).innerHTML = `<strong>Wind Direction:</strong>${calculateClosestWindDirection(
+    data,
+    i,
+    windDirections
+)}`;
+
+    document.querySelector(
+        `#card-9pm .wind-gust-speed`
+    ).innerHTML = `<strong>Wind Gust speed:</strong> ${
+        data.list[i * 8].wind.gust !== undefined
+            ? (data.list[i * 8].wind.gust * 2.23694).toFixed(1) + " mph"
+            : "N/A"
+    }`;
+
+     document.querySelector(
+        `#card-9pm .precipitation-percentage`
+    ).innerHTML = `<strong>Precipitation Probability:</strong> ${
+        data.list[i * 8].pop !== undefined
+            ? Math.round(data.list[i * 8].pop * 100) + "%"
+            : "N/A"
+    }`;
+
+ 
+
+
+ 
 
 
 
@@ -195,13 +231,13 @@ document.querySelector(
     // list.weather.description - 
     // list.main.temp
     // list.main.feels_like
-    // list.main.humidity
+    // list.main.humidity    
     // list.wind.speed
-    // list.wind.deg
+        // list.wind.deg       
     // list.wind.gust
     // list.pop
     // (possibility of precipitation)
-
+   
 
 
     function convertUnixTimeToDateTime(unixTime) {
