@@ -158,6 +158,25 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // TODO - for the 3hrly detail modal 6am-9am-12-3pm-6pm-9pm
+    // get all weather data
+    // filter weather data list down to limit to selected day
+    // log data to console to verify data is restricted to selected date
+
+    //Populate cards on MODAL with info from sources below (will require index to post correctly)
+    //list.weather.icon – already present
+    // list.weather.description - 
+    // list.main.temp
+    // list.main.feels_like
+    // list.main.humidity
+    // list.wind.speed
+    // list.wind.deg
+    // list.wind.gust
+    // list.pop
+    // (possibility of precipitation)
+
+
+
     function convertUnixTimeToDateTime(unixTime) {
         let date = new Date(unixTime * 1000);
         let hours =
