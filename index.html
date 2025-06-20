@@ -39,7 +39,8 @@
         <!-- center cards, but not content -->
         <!-- https://getbootstrap.com/docs/5.3/components/card/#horizontal -->
         <div class="forecast-cards">
-            <div id="card1" class="card my-3 m-auto" style="max-width: 540px;">
+            <div id="card1" class="card card-to-modal my-3 m-auto" style="max-width: 540px;" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
                 <div class="row g-0">
                     <div class="col-4 text-center align-content-center">
                         <div><i class="weather-icon"></i></div>
@@ -61,7 +62,7 @@
                     </div>
                 </div>
             </div>
-            <div id="card2" class="card my-3 m-auto" style="max-width: 540px;" data-bs-toggle="modal"
+            <div id="card2" class="card card-to-modal my-3 m-auto" style="max-width: 540px;" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
                 <div class="row g-0">
                     <div class="col-4 text-center align-content-center">
@@ -84,7 +85,7 @@
                     </div>
                 </div>
             </div>
-            <div id="card3" class="card my-3 m-auto" style="max-width: 540px;" data-bs-toggle="modal"
+            <div id="card3" class="card card-to-modal my-3 m-auto" style="max-width: 540px;" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
                 <div class="row g-0">
                     <div class="col-4 text-center align-content-center">
@@ -107,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            <div id="card4" class="card my-3 m-auto" style="max-width: 540px;" data-bs-toggle="modal"
+            <div id="card4" class="card card-to-modal my-3 m-auto" style="max-width: 540px;" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
                 <div class="row g-0">
                     <div class="col-4 text-center align-content-center">
@@ -130,7 +131,7 @@
                     </div>
                 </div>
             </div>
-            <div id="card5" class="card my-3 m-auto" style="max-width: 540px;" data-bs-toggle="modal"
+            <div id="card5" class="card card-to-modal my-3 m-auto" style="max-width: 540px;" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
                 <div class="row g-0">
                     <div class="col-4 text-center align-content-center">
@@ -157,160 +158,12 @@
 
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
             <div class="modal-dialog">
                 <div class="modal-content ">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">% Day Of The Week %</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div id="card-3am" class="card my-3 m-auto" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col-4 text-center align-content-center">
-                                    <div><i class="weather-icon"></i></div>
-                                </div>
-                                <div class="col-8">
-                                    <div class="card-body row">
-                                        <p class="time-of-day card-title">% Time of Day 3am %</p>
-                                        <p class="temp card-text">% temp %</p>
-                                        <p class="feels-like card-text">% feels like %</p>
-                                        <p class="description card-text">% description %</p>
-                                        <p class="humidity card-text">% humidity %</p>
-                                        <p class="wind-speed card-text">% Wind Speed %</p>
-                                        <p class="wind-direction card-text">% Wind Direction %</p>
-                                        <p class="wind-gust-speed card-text">% Wind gust speed %</p>
-                                        <p class="precipitation-percentage card-text">% precipitation-percentage %</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="card-6am" class="card my-3 m-auto" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col-4 text-center align-content-center">
-                                    <div><i class="weather-icon"></i></div>
-                                </div>
-                                <div class="col-8">
-                                    <div class="card-body row">
-                                        <p class="time-of-day card-title">% Time of Day 6am %</p>
-                                        <p class="temp card-text">% temp %</p>
-                                        <p class="feels-like card-text">% feels like %</p>
-                                        <p class="description card-text">% description %</p>
-                                        <p class="humidity card-text">% humidity %</p>
-                                        <p class="wind-speed card-text">% Wind Speed %</p>
-                                        <p class="wind-direction card-text">% Wind Direction %</p>
-                                        <p class="wind-gust-speed card-text">% Wind gust speed %</p>
-                                        <p class="precipitation-percentage card-text">% precipitation-percentage %</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="card-9am" class="card my-3 m-auto" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col-4 text-center align-content-center">
-                                    <div><i class="weather-icon"></i></div>
-                                </div>
-                                <div class="col-8">
-                                    <div class="card-body row">
-                                        <p class="time-of-day card-title">% Time of Day 9am %</p>
-                                        <p class="temp card-text">% temp %</p>
-                                        <p class="feels-like card-text">% feels like %</p>
-                                        <p class="description card-text">% description %</p>
-                                        <p class="humidity card-text">% humidity %</p>
-                                        <p class="wind-speed card-text">% Wind Speed %</p>
-                                        <p class="wind-direction card-text">% Wind Direction %</p>
-                                        <p class="wind-gust-speed card-text">% Wind gust speed %</p>
-                                        <p class="precipitation-percentage card-text">% precipitation-percentage %</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="card-12pm" class="card my-3 m-auto" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col-4 text-center align-content-center">
-                                    <div><i class="weather-icon"></i></div>
-                                </div>
-                                <div class="col-8">
-                                    <div class="card-body row">
-                                        <p class="time-of-day card-title">% Time of Day 12pm %</p>
-                                        <p class="temp card-text">% temp %</p>
-                                        <p class="feels-like card-text">% feels like %</p>
-                                        <p class="description card-text">% description %</p>
-                                        <p class="humidity card-text">% humidity %</p>
-                                        <p class="wind-speed card-text">% Wind Speed %</p>
-                                        <p class="wind-direction card-text">% Wind Direction %</p>
-                                        <p class="wind-gust-speed card-text">% Wind gust speed %</p>
-                                        <p class="precipitation-percentage card-text">% precipitation-percentage %</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="card-3pm" class="card my-3 m-auto" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col-4 text-center align-content-center">
-                                    <div><i class="weather-icon"></i></div>
-                                </div>
-                                <div class="col-8">
-                                    <div class="card-body row">
-                                        <p class="time-of-day card-title">% Time of Day 3pm %</p>
-                                        <p class="temp card-text">% temp %</p>
-                                        <p class="feels-like card-text">% feels like %</p>
-                                        <p class="description card-text">% description %</p>
-                                        <p class="humidity card-text">% humidity %</p>
-                                        <p class="wind-speed card-text">% Wind Speed %</p>
-                                        <p class="wind-direction card-text">% Wind Direction %</p>
-                                        <p class="wind-gust-speed card-text">% Wind gust speed %</p>
-                                        <p class="precipitation-percentage card-text">% precipitation-percentage %</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="card-6pm" class="card my-3 m-auto" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col-4 text-center align-content-center">
-                                    <div><i class="weather-icon"></i></div>
-                                </div>
-                                <div class="col-8">
-                                    <div class="card-body row">
-                                        <p class="time-of-day card-title">% Time of Day 6pm %</p>
-                                        <p class="temp card-text">% temp %</p>
-                                        <p class="feels-like card-text">% feels like %</p>
-                                        <p class="description card-text">% description %</p>
-                                        <p class="humidity card-text">% humidity %</p>
-                                        <p class="wind-speed card-text">% Wind Speed %</p>
-                                        <p class="wind-direction card-text">% Wind Direction %</p>
-                                        <p class="wind-gust-speed card-text">% Wind gust speed %</p>
-                                        <p class="precipitation-percentage card-text">% precipitation-percentage %</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="card-9pm" class="card my-3 m-auto" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col-4 text-center align-content-center">
-                                    <div><i class="weather-icon"></i></div>
-                                </div>
-                                <div class="col-8">
-                                    <div class="card-body row">
-                                        <p class="time-of-day card-title">% Time of Day 9pm %</p>
-                                        <p class="temp card-text">% temp %</p>
-                                        <p class="feels-like card-text">% feels like %</p>
-                                        <p class="description card-text">% description %</p>
-                                        <p class="humidity card-text">% humidity %</p>
-                                        <p class="wind-speed card-text">% Wind Speed %</p>
-                                        <p class="wind-direction card-text">% Wind Direction %</p>
-                                        <p class="wind-gust-speed card-text">% Wind gust speed %</p>                                                                         
-                                        <p class="precipitation-percentage card-text">% precipitation-percentage %</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-                <div class="modal-footer">
-
-                </div>
+            </div>
+            <div class="modal-footer">
             </div>
         </div>
     </div>
