@@ -36,3 +36,41 @@ body {
 h1 {
     font-family: var(--header-font);
 }
+
+/* Media query */
+@media (min-width: 992px) {
+    /* Stack image above content in each card */
+    .forecast-cards {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
+    }
+    .forecast-cards > .card {
+        margin: 0;
+        width: 100%;
+        max-width: 300px;
+    }
+    .forecast-cards .card .row.g-0 {
+        flex-direction: column !important;
+        display: flex;
+    }
+    .forecast-cards .card .col-4,
+    .forecast-cards .card .col-8 {
+        flex: none;
+        max-width: 100%;
+        width: 100%;
+    }
+    .forecast-cards .card .col-4 {
+        order: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 1rem;
+        padding-bottom: 0.5rem;
+    }
+    .forecast-cards .card .col-8 {
+        order: 2;
+        padding-bottom: 1rem;
+    }
+}
