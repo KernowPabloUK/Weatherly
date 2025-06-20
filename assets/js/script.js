@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // create array of url weather condition icons
-    // key value pair
+    //#region Global Variables
+
+    const apiKey = "0acafacede1fa597f8b4258fff3abb0d";
+    const submitButton = document.querySelector("#submit");
+
     const weatherIcons = {
         "01d": "https://openweathermap.org/img/wn/01d@2x.png",
         "02d": "https://openweathermap.org/img/wn/02d@2x.png",
@@ -21,10 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
         "13n": "https://openweathermap.org/img/wn/13n@2x.png",
         "50n": "https://openweathermap.org/img/wn/50n@2x.png",
     };
-
-    //#region Global Variables
-    const apiKey = "0acafacede1fa597f8b4258fff3abb0d";
-    const submitButton = document.querySelector("#submit");
 
     const weekdays = [
         "Sunday",
@@ -98,12 +97,12 @@ document.addEventListener("DOMContentLoaded", function () {
     //#region Functions
     async function getWeather() {
         const location = document.querySelector("#locationInput").value;
-        const urlGeo = `http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${apiKey}`;
+        const urlGeo = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${apiKey}`;
 
         const responseGeo = await fetch(urlGeo);
         const dataGeo = await responseGeo.json();
 
-        const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${dataGeo[0].lat}&lon=${dataGeo[0].lon}&appid=${apiKey}&units=metric`;
+        const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${dataGeo[0].lat}&lon=${dataGeo[0].lon}&appid=${apiKey}&units=metric`;
 
         try {
             const response = await fetch(url);
@@ -112,8 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (data.cod == 200) {
                 for (let i = 0; i < 5; i++) {
-                    // Date Section
-                    let weatherIconCode = data.list[0].weather[0].icon;
+                    let weatherIconCode = data.list[i * 8].weather[0].icon;
                     let iconUrl = "";
                     for (let icon in weatherIcons) {
                         if (icon === weatherIconCode) {
@@ -124,6 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         `#card${i + 1} .weather-icon`
                     ).innerHTML = `<img src="${iconUrl}" alt="Weather icon">`;
 
+                    // Date Section
                     document.querySelector(
                         `#card${i + 1} .dayOfTheWeek`
                     ).innerHTML = `${
