@@ -145,6 +145,69 @@ document.addEventListener("DOMContentLoaded", function () {
                         .innerHTML = `Wind Direction<br /><strong>${calculateClosestWindDirection(data,i,windDirections)}</strong>`;
                     document.querySelector(`#card${i + 1} .wind-speed`)
                         .innerHTML = `Wind Speed<br /><strong>${(data.list[i * 8].wind.speed * 2.23694).toFixed(1)} mph</strong>`;
+
+
+
+document.querySelector(`#card-9pm .weather-icon`).innerHTML = `<img src="${
+    weatherIcons[data.list[i * 8].weather[0].icon]
+}" alt="Weather icon">`;
+
+document.querySelector(`#card-9pm .description`).innerHTML = `<strong>${
+    data.list[i * 8].weather[0].description.charAt(0).toUpperCase() +
+    data.list[i * 8].weather[0].description.slice(1)
+}</strong>`;
+
+document.querySelector(`#card-9pm .temp`).innerHTML = `<strong>${Math.round(
+    data.list[i * 8].main.temp
+)}°C</strong>`;
+
+document.querySelector(
+    `#card-9pm .feels-like`
+).innerHTML = `<strong>Feels Like:</stong> ${Math.round(
+    data.list[i * 8].main.feels_like
+)}°C`;
+document.querySelector(
+    `#card-9pm .humidity`
+).innerHTML = `<strong>Humidity:</strong> ${data.list[i * 8].main.humidity}%`;
+
+document.querySelector(
+    `#card-9pm .wind-speed`
+).innerHTML = `<strong>Wind Speed:</strong> ${(
+    data.list[i * 8].wind.speed * 2.23694
+).toFixed(1)} mph`;
+document.querySelector(
+    `#card-9pm .wind-direction`
+).innerHTML = `<strong>Wind Direction:</strong>${calculateClosestWindDirection(
+    data,
+    i,
+    windDirections
+)}`;
+
+    document.querySelector(
+        `#card-9pm .wind-gust-speed`
+    ).innerHTML = `<strong>Wind Gust speed:</strong> ${
+        data.list[i * 8].wind.gust !== undefined
+            ? (data.list[i * 8].wind.gust * 2.23694).toFixed(1) + " mph"
+            : "N/A"
+    }`;
+
+     document.querySelector(
+        `#card-9pm .precipitation-percentage`
+    ).innerHTML = `<strong>Precipitation Probability:</strong> ${
+        data.list[i * 8].pop !== undefined
+            ? Math.round(data.list[i * 8].pop * 100) + "%"
+            : "N/A"
+    }`;
+
+ 
+
+
+ 
+
+
+
+
+
                 }
             } else {
                 document.querySelector(`.dayOfTheWeek`)
@@ -169,6 +232,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function convertUnixDateTimeToTime(unixTime) {
+        }
+    }
+
+    // TODO - for the 3hrly detail modal 6am-9am-12-3pm-6pm-9pm
+    // get all weather data
+    // filter weather data list down to limit to selected day
+    // log data to console to verify data is restricted to selected date
+
+    //Populate cards on MODAL with info from sources below (will require index to post correctly)
+    //list.weather.icon – already present
+    // list.weather.description - 
+    // list.main.temp
+    // list.main.feels_like
+    // list.main.humidity    
+    // list.wind.speed
+        // list.wind.deg       
+    // list.wind.gust
+    // list.pop
+    // (possibility of precipitation)
+   
+
+
+    function convertUnixTimeToDateTime(unixTime) {
         let date = new Date(unixTime * 1000);
         let hours =
             date.getHours() > 9 ? date.getHours() : `0${date.getHours()}`;
