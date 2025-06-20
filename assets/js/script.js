@@ -138,76 +138,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         .innerHTML = `<strong>${Math.round(data.list[i * 8].main.temp)}°C</strong>`;
                     
                     document.querySelector(`#card${i + 1} .sunrise`)
-                        .innerHTML = `Sunrise<br /><strong>${convertUnixDateTimeToTime(data.city.sunrise)}</strong>`;
+                        .innerHTML = `Sunrise<br /><strong>${convertUnixTimeToDateTime(data.city.sunrise)}</strong>`;
                     document.querySelector(`#card${i + 1} .sunset`)
-                        .innerHTML = `Sunset<br /><strong>${convertUnixDateTimeToTime(data.city.sunset)}</strong>`;
+                        .innerHTML = `Sunset<br /><strong>${convertUnixTimeToDateTime(data.city.sunset)}</strong>`;
                     document.querySelector(`#card${i + 1} .wind-direction`)
                         .innerHTML = `Wind Direction<br /><strong>${calculateClosestWindDirection(data,i,windDirections)}</strong>`;
                     document.querySelector(`#card${i + 1} .wind-speed`)
                         .innerHTML = `Wind Speed<br /><strong>${(data.list[i * 8].wind.speed * 2.23694).toFixed(1)} mph</strong>`;
-
-
-
-document.querySelector(`#card-9pm .weather-icon`).innerHTML = `<img src="${
-    weatherIcons[data.list[i * 8].weather[0].icon]
-}" alt="Weather icon">`;
-
-document.querySelector(`#card-9pm .description`).innerHTML = `<strong>${
-    data.list[i * 8].weather[0].description.charAt(0).toUpperCase() +
-    data.list[i * 8].weather[0].description.slice(1)
-}</strong>`;
-
-document.querySelector(`#card-9pm .temp`).innerHTML = `<strong>${Math.round(
-    data.list[i * 8].main.temp
-)}°C</strong>`;
-
-document.querySelector(
-    `#card-9pm .feels-like`
-).innerHTML = `<strong>Feels Like:</stong> ${Math.round(
-    data.list[i * 8].main.feels_like
-)}°C`;
-document.querySelector(
-    `#card-9pm .humidity`
-).innerHTML = `<strong>Humidity:</strong> ${data.list[i * 8].main.humidity}%`;
-
-document.querySelector(
-    `#card-9pm .wind-speed`
-).innerHTML = `<strong>Wind Speed:</strong> ${(
-    data.list[i * 8].wind.speed * 2.23694
-).toFixed(1)} mph`;
-document.querySelector(
-    `#card-9pm .wind-direction`
-).innerHTML = `<strong>Wind Direction:</strong>${calculateClosestWindDirection(
-    data,
-    i,
-    windDirections
-)}`;
-
-    document.querySelector(
-        `#card-9pm .wind-gust-speed`
-    ).innerHTML = `<strong>Wind Gust speed:</strong> ${
-        data.list[i * 8].wind.gust !== undefined
-            ? (data.list[i * 8].wind.gust * 2.23694).toFixed(1) + " mph"
-            : "N/A"
-    }`;
-
-     document.querySelector(
-        `#card-9pm .precipitation-percentage`
-    ).innerHTML = `<strong>Precipitation Probability:</strong> ${
-        data.list[i * 8].pop !== undefined
-            ? Math.round(data.list[i * 8].pop * 100) + "%"
-            : "N/A"
-    }`;
-
- 
-
-
- 
-
-
-
-
-
                 }
             } else {
                 document.querySelector(`.dayOfTheWeek`)
@@ -230,29 +167,6 @@ document.querySelector(
         const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${dataGeo[0].lat}&lon=${dataGeo[0].lon}&appid=${apiKey}&units=metric`;
         return url;
     }
-
-    function convertUnixDateTimeToTime(unixTime) {
-        }
-    }
-
-    // TODO - for the 3hrly detail modal 6am-9am-12-3pm-6pm-9pm
-    // get all weather data
-    // filter weather data list down to limit to selected day
-    // log data to console to verify data is restricted to selected date
-
-    //Populate cards on MODAL with info from sources below (will require index to post correctly)
-    //list.weather.icon – already present
-    // list.weather.description - 
-    // list.main.temp
-    // list.main.feels_like
-    // list.main.humidity    
-    // list.wind.speed
-        // list.wind.deg       
-    // list.wind.gust
-    // list.pop
-    // (possibility of precipitation)
-   
-
 
     function convertUnixTimeToDateTime(unixTime) {
         let date = new Date(unixTime * 1000);
@@ -313,15 +227,15 @@ document.querySelector(
                                     </div>
                                     <div class="col-8">
                                         <div class="card-body row">
-                                            <p class="time-of-day card-title">${item.dt_txt.split(' ')[1].slice(0,5)}</p>
-                                            <p class="temp card-text">${Math.round(item.main.temp)}°C</p>
-                                            <p class="feels-like card-text">Feels like: ${Math.round(item.main.feels_like)}°C</p>
-                                            <p class="description card-text">${item.weather[0].description}</p>
-                                            <p class="humidity card-text">Humidity: ${item.main.humidity}%</p>
-                                            <p class="wind-speed card-text">Wind Speed: ${(item.wind.speed * 2.23694).toFixed(1)} mph</p>
-                                            <p class="wind-direction card-text">Wind Direction: ${calculateClosestWindDirection({list:[item]},0,windDirections)}</p>
-                                            <p class="wind-gust-speed card-text">Wind Gust: ${item.wind.gust ? (item.wind.gust * 2.23694).toFixed(1) : 'N/A'} mph</p>
-                                            <p class="precipitation-percentage card-text">Precipitation: ${item.pop ? Math.round(item.pop * 100) : 0}%</p>
+                                            <p class="time-of-day card-title"><strong>${item.dt_txt.split(' ')[1].slice(0,5)}</strong></p>
+                                            <p class="description card-text"><strong>${item.weather[0].description.charAt(0).toUpperCase() + item.weather[0].description.slice(1)}</strong></p>
+                                            <p class="temp card-text"><strong>${Math.round(item.main.temp)}°C</strong></p>
+                                            <p class="feels-like card-text">Feels like: <strong>${Math.round(item.main.feels_like)}°C</strong></p>
+                                            <p class="humidity card-text">Humidity: <strong>${item.main.humidity}%</strong></p>
+                                            <p class="wind-speed card-text">Wind Speed: <strong>${(item.wind.speed * 2.23694).toFixed(1)} mph</strong></p>
+                                            <p class="wind-direction card-text">Wind Direction: <strong>${calculateClosestWindDirection({list:[item]},0,windDirections)}</strong></p>
+                                            <p class="wind-gust-speed card-text">Wind Gust: <strong>${item.wind.gust ? (item.wind.gust * 2.23694).toFixed(1) : 'N/A'} mph</strong></p>
+                                            <p class="precipitation-percentage card-text">Precipitation: <strong>${item.pop ? Math.round(item.pop * 100) : 0}%</strong></p>
                                         </div>
                                     </div>
                                 </div>
