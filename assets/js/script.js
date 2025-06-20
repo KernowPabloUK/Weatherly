@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const apiKey = "0acafacede1fa597f8b4258fff3abb0d";
     const submitButton = document.querySelector("#submit");
+    let cardToModalButtons = document.querySelectorAll(".card-to-modal");
 
     const weatherIcons = {
         "01d": "https://openweathermap.org/img/wn/01d@2x.png",
@@ -92,17 +93,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //#region Event Handlers
     submitButton.addEventListener("click", getWeather);
+    cardToModalButtons.forEach(function(button) {button.addEventListener("click", function () {getHourlyWeatherByDay(this);});
+    });
+
     //#endregion
 
     //#region Functions
     async function getWeather() {
-        const location = document.querySelector("#locationInput").value;
-        const urlGeo = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${apiKey}`;
-
-        const responseGeo = await fetch(urlGeo);
-        const dataGeo = await responseGeo.json();
-
-        const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${dataGeo[0].lat}&lon=${dataGeo[0].lon}&appid=${apiKey}&units=metric`;
+        const url = await getAPIDataURL(apiKey);
 
         try {
             const response = await fetch(url);
@@ -140,9 +138,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         .innerHTML = `<strong>${Math.round(data.list[i * 8].main.temp)}°C</strong>`;
                     
                     document.querySelector(`#card${i + 1} .sunrise`)
-                        .innerHTML = `Sunrise<br /><strong>${convertUnixTimeToDateTime(data.city.sunrise)}</strong>`;
+                        .innerHTML = `Sunrise<br /><strong>${convertUnixDateTimeToTime(data.city.sunrise)}</strong>`;
                     document.querySelector(`#card${i + 1} .sunset`)
-                        .innerHTML = `Sunset<br /><strong>${convertUnixTimeToDateTime(data.city.sunset)}</strong>`;
+                        .innerHTML = `Sunset<br /><strong>${convertUnixDateTimeToTime(data.city.sunset)}</strong>`;
                     document.querySelector(`#card${i + 1} .wind-direction`)
                         .innerHTML = `Wind Direction<br /><strong>${calculateClosestWindDirection(data,i,windDirections)}</strong>`;
                     document.querySelector(`#card${i + 1} .wind-speed`)
@@ -155,29 +153,22 @@ document.addEventListener("DOMContentLoaded", function () {
         } catch (error) {
             document.querySelector(`.dayOfTheWeek`)
                 .innerHTML = `<p>Error fetching data.</p>`;
+                
         }
     }
 
-    // TODO - for the 3hrly detail modal 6am-9am-12-3pm-6pm-9pm
-    // get all weather data
-    // filter weather data list down to limit to selected day
-    // log data to console to verify data is restricted to selected date
+    async function getAPIDataURL(apiKey) {
+        const location = document.querySelector("#locationInput").value;
+        const urlGeo = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${apiKey}`;
 
-    //Populate cards on MODAL with info from sources below (will require index to post correctly)
-    //list.weather.icon – already present
-    // list.weather.description - 
-    // list.main.temp
-    // list.main.feels_like
-    // list.main.humidity
-    // list.wind.speed
-    // list.wind.deg
-    // list.wind.gust
-    // list.pop
-    // (possibility of precipitation)
+        const responseGeo = await fetch(urlGeo);
+        const dataGeo = await responseGeo.json();
 
+        const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${dataGeo[0].lat}&lon=${dataGeo[0].lon}&appid=${apiKey}&units=metric`;
+        return url;
+    }
 
-
-    function convertUnixTimeToDateTime(unixTime) {
+    function convertUnixDateTimeToTime(unixTime) {
         let date = new Date(unixTime * 1000);
         let hours =
             date.getHours() > 9 ? date.getHours() : `0${date.getHours()}`;
@@ -197,6 +188,71 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
         return closestWindDirection;
+    }
+
+    function convertDateToYYYYMMDD(dayText, months) {
+        let [, day, month] = dayText.split(" ");
+        let year = new Date().getFullYear();
+        let monthIndex = months.findIndex((m) => m === month) + 1;
+        let dayPadded = day.toString().padStart(2, "0");
+        let monthPadded = monthIndex.toString().padStart(2, "0");
+        let currentCardDate = `${year}-${monthPadded}-${dayPadded}`;
+        return currentCardDate;
+    }
+
+    async function getHourlyWeatherByDay(button) {
+        const url = await getAPIDataURL(apiKey);
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+                if (data.cod == 200) {
+                    let dayText = button.closest('.card').querySelector('.dayOfTheWeek').innerText;
+                    let currentCardDate = convertDateToYYYYMMDD(dayText, months);
+                    let filteredList = data.list.filter(item => item.dt_txt.startsWith(currentCardDate));
+                    let modalContent = `
+                        <div class="modal-header" id="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">${dayText}</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">`;
+                    filteredList.forEach((item, index) => {
+                        const iconUrl = weatherIcons[item.weather[0].icon] || '';
+                        modalContent += `
+                            <div id="modal-card${index + 1}" class="card my-3 m-auto" style="max-width: 540px;">
+                                <div class="row g-0">
+                                    <div class="col-4 text-center align-content-center">
+                                        <div class="weather-icon"><img src="${iconUrl}" alt="Weather icon"></div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="card-body row">
+                                            <p class="time-of-day card-title">${item.dt_txt.split(' ')[1].slice(0,5)}</p>
+                                            <p class="temp card-text">${Math.round(item.main.temp)}°C</p>
+                                            <p class="feels-like card-text">Feels like: ${Math.round(item.main.feels_like)}°C</p>
+                                            <p class="description card-text">${item.weather[0].description}</p>
+                                            <p class="humidity card-text">Humidity: ${item.main.humidity}%</p>
+                                            <p class="wind-speed card-text">Wind Speed: ${(item.wind.speed * 2.23694).toFixed(1)} mph</p>
+                                            <p class="wind-direction card-text">Wind Direction: ${calculateClosestWindDirection({list:[item]},0,windDirections)}</p>
+                                            <p class="wind-gust-speed card-text">Wind Gust: ${item.wind.gust ? (item.wind.gust * 2.23694).toFixed(1) : 'N/A'} mph</p>
+                                            <p class="precipitation-percentage card-text">Precipitation: ${item.pop ? Math.round(item.pop * 100) : 0}%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                        modalContent += `</div>`;
+                        document.querySelector('.modal-content').innerHTML = modalContent;
+            } else {
+                document.querySelector(`.dayOfTheWeek`)
+                    .innerHTML = `<p>Location not found.</p>`;
+            }
+        } catch (error) {
+            document.querySelector(
+                `.dayOfTheWeek`
+            ).innerHTML = `<p>Error fetching data.</p>`;
+        }
     }
     //#endregion
 
