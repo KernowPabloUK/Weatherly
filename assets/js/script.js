@@ -97,12 +97,12 @@ document.addEventListener("DOMContentLoaded", function () {
     //#region Functions
     async function getWeather() {
         const location = document.querySelector("#locationInput").value;
-        const urlGeo = `http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${apiKey}`;
+        const urlGeo = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${apiKey}`;
 
         const responseGeo = await fetch(urlGeo);
         const dataGeo = await responseGeo.json();
 
-        const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${dataGeo[0].lat}&lon=${dataGeo[0].lon}&appid=${apiKey}&units=metric`;
+        const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${dataGeo[0].lat}&lon=${dataGeo[0].lon}&appid=${apiKey}&units=metric`;
 
         try {
             const response = await fetch(url);
