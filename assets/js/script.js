@@ -148,23 +148,26 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.querySelector(`#card${i + 1} .wind-speed`)
                         .innerHTML = `Wind Speed<br /><strong>${(data.list[i * 8].wind.speed * 2.23694).toFixed(1)} mph</strong>`;
 
-// code here
-// list.weather.icon – already present
-document.querySelector(`#card-9pm .weather-icon`)
-    .innerHTML = `<img src="${weatherIcons[data.list[i * 8].weather[0].icon]}" alt="Weather icon">`;
-     
-                  
 
-    document.querySelector(`#card-9pm .description`)
-        .innerHTML = `<strong>${data.list[i * 8].weather[0].description.charAt(0).toUpperCase() + data.list[i * 8].weather[0].description.slice(1)}</strong>`;
 
-    
-    document.querySelector(`#card-9pm .temp`)
-        .innerHTML = `<strong>${Math.round(data.list[i * 8].main.temp)}°C</strong>`;
+document.querySelector(`#card-9pm .weather-icon`).innerHTML = `<img src="${
+    weatherIcons[data.list[i * 8].weather[0].icon]
+}" alt="Weather icon">`;
 
-    
-        document.querySelector(`#card-9pm .feels-like`)
-            .innerHTML = `<strong>Feels Like:</stong> ${Math.round(data.list[i * 8].main.feels_like)}°C`;
+document.querySelector(`#card-9pm .description`).innerHTML = `<strong>${
+    data.list[i * 8].weather[0].description.charAt(0).toUpperCase() +
+    data.list[i * 8].weather[0].description.slice(1)
+}</strong>`;
+
+document.querySelector(`#card-9pm .temp`).innerHTML = `<strong>${Math.round(
+    data.list[i * 8].main.temp
+)}°C</strong>`;
+
+document.querySelector(
+    `#card-9pm .feels-like`
+).innerHTML = `<strong>Feels Like:</stong> ${Math.round(
+    data.list[i * 8].main.feels_like
+)}°C`;
 
 
 
