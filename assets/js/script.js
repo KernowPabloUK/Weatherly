@@ -151,14 +151,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Metrics Section
                     document.querySelector(`#card1 .temp`)
-                        .innerHTML = `<strong>${Math.round(data.main.temp)}°C</strong>`;
+                        .innerHTML = `<strong>${Math.round(data.main.temp-273.15)}°C</strong>`;
                     
                     document.querySelector(`#card1 .sunrise`)
                         .innerHTML = `Sunrise<br /><strong>${convertUnixTimeToDateTime(data.sys.sunrise)}</strong>`;
                     document.querySelector(`#card1 .sunset`)
                         .innerHTML = `Sunset<br /><strong>${convertUnixTimeToDateTime(data.sys.sunset)}</strong>`;
+                    let windDirectionDegree = data.wind.deg;
+                    let closestWindDirection = null;
+                    let minDiff = 360;
+                    for (let windDegree in windDirections) {
+                        let diff = Math.abs(
+                            windDirectionDegree - Number(windDegree)
+                        );
+                        if (diff < minDiff) {
+                            minDiff = diff;
+                            closestWindDirection = windDirections[windDegree];
+                        }
+                    }
                     document.querySelector(`#card1 .wind-direction`)
-                        .innerHTML = `Wind Direction<br /><strong>${data.wind.deg}</strong>`;
+                        .innerHTML = `Wind Direction<br /><strong>${closestWindDirection}</strong>`;
                     document.querySelector(`#card1 .wind-speed`)
                         .innerHTML = `Wind Speed<br /><strong>${(data.wind.speed * 2.23694).toFixed(1)} mph</strong>`;
         } catch {
