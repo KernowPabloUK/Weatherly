@@ -1,9 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
     //#region Global Variables
     let latestWeatherData = null;
+    let geoLocation = null;
     const apiKey = "0acafacede1fa597f8b4258fff3abb0d";
     const submitButton = document.querySelector("#submit");
     let cardToModalButtons = document.querySelectorAll(".card-to-modal");
+    let currentWeatherCard = document.querySelector('#currentWeatherCard');
 
     const weatherIcons = {
         "01d": "https://openweathermap.org/img/wn/01d@2x.png",
@@ -92,17 +94,22 @@ document.addEventListener("DOMContentLoaded", function () {
     //#endregion
 
     //#region Event Handlers
-    submitButton.addEventListener("click", getWeather);
-    cardToModalButtons.forEach(function(button) {button.addEventListener("click", function () {getHourlyWeatherByDay(this);});
-    });
-
-    document.querySelector("body").onload = function() {getLocation()};
+    submitButton.addEventListener("click", getWeather, getCurrentWeather);
+    cardToModalButtons.forEach(function(button) {button.addEventListener("click", function () {getHourlyWeatherByDay(this);});});
+    getLocation();
     //#
 
     //#region Functions
     function getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(getCurrentWeather, geoLocationError);
+            navigator.geolocation.getCurrentPosition(function(position) {
+                geoLocation = {
+                    lat: position.coords.latitude,
+                    lon: position.coords.longitude
+                };
+                geoLocationURL = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+                getCurrentWeather(geoLocationURL);getWeather(geoLocationURL);
+            }, geoLocationError);
         } else {
             console.log("Geolocation is not supported by this browser.");
         }
@@ -112,16 +119,13 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Sorry, no position available.");
     }
 
-    async function getCurrentWeather(position) {
-        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}`;
-
+    async function getCurrentWeather(geoLocationURL) {
         try {
-            const response = await fetch(url);
+            const response = await fetch(geoLocationURL);
             const data = await response.json();
             currentWeatherData = data;
 
-            // Show the forecast cards when weather data is loaded
-            document.querySelector('#card1').classList.add('show');
+            currentWeatherCard.classList.add('show');
 
             console.log(data);
 
@@ -132,12 +136,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             iconUrl = weatherIcons[icon];
                         }
                     }
-                    document.querySelector(`#card1 .weather-icon`)
+                    currentWeatherCard.querySelector(`.weather-icon`)
                         .innerHTML = `<img src="${iconUrl}" alt="Weather icon">`;
-                    
-                    // Date Section
-                    document.querySelector(`#card1 .dayOfTheWeek`)
-                        .innerHTML = ``;
 
                     // Description Section
                     let description = data.weather[0].description;
@@ -146,42 +146,30 @@ document.addEventListener("DOMContentLoaded", function () {
                         description[0],
                         firstLetterCapitalised
                     );
-                    document.querySelector(`#card1 .description`)
+                    currentWeatherCard.querySelector(`.description`)
                         .innerHTML = `<strong>${descriptionCapitalised}</strong>`;
 
                     // Metrics Section
-                    document.querySelector(`#card1 .temp`)
-                        .innerHTML = `<strong>${Math.round(data.main.temp-273.15)}°C</strong>`;
+                    currentWeatherCard.querySelector(`.temp`)
+                        .innerHTML = `<strong>${Math.round(data.main.temp)}°C</strong>`;
                     
-                    document.querySelector(`#card1 .sunrise`)
+                    currentWeatherCard.querySelector(`.sunrise`)
                         .innerHTML = `Sunrise<br /><strong>${convertUnixTimeToDateTime(data.sys.sunrise)}</strong>`;
-                    document.querySelector(`#card1 .sunset`)
+                    currentWeatherCard.querySelector(`.sunset`)
                         .innerHTML = `Sunset<br /><strong>${convertUnixTimeToDateTime(data.sys.sunset)}</strong>`;
-                    let windDirectionDegree = data.wind.deg;
-                    let closestWindDirection = null;
-                    let minDiff = 360;
-                    for (let windDegree in windDirections) {
-                        let diff = Math.abs(
-                            windDirectionDegree - Number(windDegree)
-                        );
-                        if (diff < minDiff) {
-                            minDiff = diff;
-                            closestWindDirection = windDirections[windDegree];
-                        }
-                    }
-                    document.querySelector(`#card1 .wind-direction`)
-                        .innerHTML = `Wind Direction<br /><strong>${closestWindDirection}</strong>`;
-                    document.querySelector(`#card1 .wind-speed`)
+                    currentWeatherCard.querySelector(`.wind-direction`)
+                        .innerHTML = `Wind Direction<br /><strong>${calculateClosestWindDirectionForCurrent(data, windDirections)}</strong>`;
+                    currentWeatherCard.querySelector(`.wind-speed`)
                         .innerHTML = `Wind Speed<br /><strong>${(data.wind.speed * 2.23694).toFixed(1)} mph</strong>`;
         } catch {
-            document.querySelector(`.dayOfTheWeek`) //Change to alert?
+            currentWeatherCard.querySelector(`.dayOfTheWeek`) //Change to alert?
                 .innerHTML = `<p>Error fetching data.</p>`;
         }
     }
 
     // 5 Day Forecast
-    async function getWeather() {
-        const url = await getAPIDataURL(apiKey);
+    async function getWeather(geoLocationURL) {
+        const url = await getAPIDataURL(apiKey, geoLocationURL);
 
         try {
             const response = await fetch(url);
@@ -190,10 +178,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             console.log(data);
 
-            document.querySelector('#card2').classList.add('show');
-            document.querySelector('#card3').classList.add('show');
-            document.querySelector('#card4').classList.add('show');
-            document.querySelector('#card5').classList.add('show');
+            document.querySelectorAll('.forecast-card').forEach(function(card) {
+                card.classList.add('show');
+            });
+
+
 
             if (data.cod == 200) {
                 for (let i = 0; i < 5; i++) {
@@ -289,14 +278,25 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('.modal-content').innerHTML = modalContent;
     }
 
-    async function getAPIDataURL(apiKey) {
-        const location = document.querySelector("#locationInput").value;
-        const urlGeo = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${apiKey}`;
+    async function getAPIDataURL(apiKey, geoLocationURL) {
+        let url = "";
+        const locationInput = document.querySelector("#locationInput");
+        const location = locationInput ? locationInput.value.trim() : "";
 
-        const responseGeo = await fetch(urlGeo);
-        const dataGeo = await responseGeo.json();
+        if (location !== "") {
+            const urlGeo = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${apiKey}`;
+            const responseGeo = await fetch(urlGeo);
+            const dataGeo = await responseGeo.json();
 
-        const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${dataGeo[0].lat}&lon=${dataGeo[0].lon}&appid=${apiKey}&units=metric`;
+            if (dataGeo && dataGeo.length > 0) {
+                url = `https://api.openweathermap.org/data/2.5/forecast?lat=${dataGeo[0].lat}&lon=${dataGeo[0].lon}&appid=${apiKey}&units=metric`;
+            } else {
+                throw new Error("Location not found.");
+            }
+        }
+        else if (geoLocationURL && geoLocation && geoLocation.lat != null && geoLocation.lon != null) {
+            url = `https://api.openweathermap.org/data/2.5/forecast?lat=${geoLocation.lat}&lon=${geoLocation.lon}&appid=${apiKey}&units=metric`;
+        }
         return url;
     }
 
@@ -321,6 +321,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         return closestWindDirection;
     }
+
+    function calculateClosestWindDirectionForCurrent(data, windDirections) {
+    let windDirectionDegree = data.wind.deg;
+    let closestWindDirection = null;
+    let minDiff = 360;
+    for (let windDegree in windDirections) {
+        let diff = Math.abs(windDirectionDegree - Number(windDegree));
+        if (diff < minDiff) {
+            minDiff = diff;
+            closestWindDirection = windDirections[windDegree];
+        }
+    }
+    return closestWindDirection;
+    }
+
 
     function convertDateToYYYYMMDD(dayText, months) {
         let [, day, month] = dayText.split(" ");
