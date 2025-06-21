@@ -136,8 +136,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         .innerHTML = `<img src="${iconUrl}" alt="Weather icon">`;
                     
                     // Date Section
-                    // document.querySelector(`#card1 .dayOfTheWeek`)
-                    //     .innerHTML = `${weekdays[new Date(data.list[i * 8].dt_txt).getDay()]} ${new Date(data.list[i * 8].dt_txt).getDate()} ${months[new Date(data.list[0].dt_txt).getMonth()]}`;
+                    document.querySelector(`#card1 .dayOfTheWeek`)
+                        .innerHTML = ``;
 
                     // Description Section
                     let description = data.weather[0].description;
