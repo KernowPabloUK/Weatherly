@@ -108,11 +108,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // function geoLocationSuccess(position) {
-    //     console.log(`Latitude: ${position.coords.latitude}
-    //         Longitude: ${position.coords.longitude}`);
-    // }
-
     function geoLocationError() {
         alert("Sorry, no position available.");
     }
@@ -129,6 +124,43 @@ document.addEventListener("DOMContentLoaded", function () {
             document.querySelector('#card1').classList.add('show');
 
             console.log(data);
+
+            let weatherIconCode = data.weather[0].icon;
+                    let iconUrl = "";
+                    for (let icon in weatherIcons) {
+                        if (icon === weatherIconCode) {
+                            iconUrl = weatherIcons[icon];
+                        }
+                    }
+                    document.querySelector(`#card1 .weather-icon`)
+                        .innerHTML = `<img src="${iconUrl}" alt="Weather icon">`;
+                    
+                    // Date Section
+                    // document.querySelector(`#card1 .dayOfTheWeek`)
+                    //     .innerHTML = `${weekdays[new Date(data.list[i * 8].dt_txt).getDay()]} ${new Date(data.list[i * 8].dt_txt).getDate()} ${months[new Date(data.list[0].dt_txt).getMonth()]}`;
+
+                    // Description Section
+                    let description = data.weather[0].description;
+                    let firstLetterCapitalised = description[0].toUpperCase();
+                    let descriptionCapitalised = description.replace(
+                        description[0],
+                        firstLetterCapitalised
+                    );
+                    document.querySelector(`#card1 .description`)
+                        .innerHTML = `<strong>${descriptionCapitalised}</strong>`;
+
+                    // Metrics Section
+                    document.querySelector(`#card1 .temp`)
+                        .innerHTML = `<strong>${Math.round(data.main.temp)}°C</strong>`;
+                    
+                    document.querySelector(`#card1 .sunrise`)
+                        .innerHTML = `Sunrise<br /><strong>${convertUnixTimeToDateTime(data.sys.sunrise)}</strong>`;
+                    document.querySelector(`#card1 .sunset`)
+                        .innerHTML = `Sunset<br /><strong>${convertUnixTimeToDateTime(data.sys.sunset)}</strong>`;
+                    document.querySelector(`#card1 .wind-direction`)
+                        .innerHTML = `Wind Direction<br /><strong>${data.wind.deg}</strong>`;
+                    document.querySelector(`#card1 .wind-speed`)
+                        .innerHTML = `Wind Speed<br /><strong>${(data.wind.speed * 2.23694).toFixed(1)} mph</strong>`;
         } catch {
             document.querySelector(`.dayOfTheWeek`) //Change to alert?
                 .innerHTML = `<p>Error fetching data.</p>`;
