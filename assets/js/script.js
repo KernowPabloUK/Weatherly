@@ -96,9 +96,46 @@ document.addEventListener("DOMContentLoaded", function () {
     cardToModalButtons.forEach(function(button) {button.addEventListener("click", function () {getHourlyWeatherByDay(this);});
     });
 
-    //#endregion
+    document.querySelector("body").onload = function() {getLocation()};
+    //#
 
     //#region Functions
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(getCurrentWeather, geoLocationError);
+        } else {
+            console.log("Geolocation is not supported by this browser.");
+        }
+    }
+
+    // function geoLocationSuccess(position) {
+    //     console.log(`Latitude: ${position.coords.latitude}
+    //         Longitude: ${position.coords.longitude}`);
+    // }
+
+    function geoLocationError() {
+        alert("Sorry, no position available.");
+    }
+
+    async function getCurrentWeather(position) {
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            currentWeatherData = data;
+
+            // Show the forecast cards when weather data is loaded
+            document.querySelector('#card1').classList.add('show');
+
+            console.log(data);
+        } catch {
+            document.querySelector(`.dayOfTheWeek`) //Change to alert?
+                .innerHTML = `<p>Error fetching data.</p>`;
+        }
+    }
+
+    // 5 Day Forecast
     async function getWeather() {
         const url = await getAPIDataURL(apiKey);
 
@@ -108,6 +145,11 @@ document.addEventListener("DOMContentLoaded", function () {
             latestWeatherData = data;
 
             console.log(data);
+
+            document.querySelector('#card2').classList.add('show');
+            document.querySelector('#card3').classList.add('show');
+            document.querySelector('#card4').classList.add('show');
+            document.querySelector('#card5').classList.add('show');
 
             if (data.cod == 200) {
                 for (let i = 0; i < 5; i++) {
