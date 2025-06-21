@@ -37,6 +37,24 @@ h1 {
     font-family: var(--header-font);
 }
 
+#card1,
+#card2,
+#card3,
+#card4,
+#card5 {
+    display: none;
+}
+
+#card1.show,
+#card2.show,
+#card3.show,
+#card4.show,
+#card5.show {
+    display: block;
+}
+
+
+
 /* Media query */
 @media (min-width: 992px) {
     /* Stack image above content in each card */
