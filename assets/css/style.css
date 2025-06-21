@@ -45,5 +45,6 @@ h1 {
   object-fit: contain;
   display: block;
   margin: 0 auto;
+  border-radius: 16px;
 }
 
