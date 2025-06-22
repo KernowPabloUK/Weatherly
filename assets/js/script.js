@@ -1,34 +1,35 @@
 document.addEventListener("DOMContentLoaded", function () {
     //#region Global Variables
     let latestWeatherData = null;
-    let geoLocation = null;
+    let geoLocationURL = null;
     const apiKey = "0acafacede1fa597f8b4258fff3abb0d";
+    const locationInput = document.querySelector("#locationInput");
+    const geoLocationButton = document.querySelector('#geoLocationButton');
     const submitButton = document.querySelector("#submit");
     let cardToModalButtons = document.querySelectorAll(".card-to-modal");
     let currentWeatherCard = document.querySelector('#currentWeatherCard');
 
-
-  const weatherIcons = {
-      "01d": "./assets/images/cardImages/sunny.webp",
-      "02d": "./assets/images/cardImages/fewClouds.webp",
-      "03d": "./assets/images/cardImages/scatteredClouds.webp",
-      "04d": "./assets/images/cardImages/brokenClouds.webp",
-      "09d": "./assets/images/cardImages/showers.webp",
-      "10d": "./assets/images/cardImages/rain.webp",
-      "11d": "./assets/images/cardImages/thunderstorm.webp",
-      "13d": "./assets/images/cardImages/snow.webp",
-      "50d": "./assets/images/cardImages/mist.webp",
-      "01n": "./assets/images/cardImages/clearSkyN.webp",
-      "02n": "./assets/images/cardImages/fewCloudsN.webp",
-      "03n": "./assets/images/cardImages/scatteredCloudsN.webp",
-      "04n": "./assets/images/cardImages/brokenCloudsN.webp",
-      "09n": "./assets/images/cardImages/showersN.webp",
-      "10n": "./assets/images/cardImages/rainN.webp",
-      "11n": "./assets/images/cardImages/thunderstorm.webp",
-      "13n": "./assets/images/cardImages/snowN.webp",
-      "50n": "./assets/images/cardImages/mistN.webp",
+    const weatherIcons = {
+        "01d": "./assets/images/cardImages/sunny.webp",
+        "02d": "./assets/images/cardImages/fewClouds.webp",
+        "03d": "./assets/images/cardImages/scatteredClouds.webp",
+        "04d": "./assets/images/cardImages/brokenClouds.webp",
+        "09d": "./assets/images/cardImages/showers.webp",
+        "10d": "./assets/images/cardImages/rain.webp",
+        "11d": "./assets/images/cardImages/thunderstorm.webp",
+        "13d": "./assets/images/cardImages/snow.webp",
+        "50d": "./assets/images/cardImages/mist.webp",
+        "01n": "./assets/images/cardImages/clearSkyN.webp",
+        "02n": "./assets/images/cardImages/fewCloudsN.webp",
+        "03n": "./assets/images/cardImages/scatteredCloudsN.webp",
+        "04n": "./assets/images/cardImages/brokenCloudsN.webp",
+        "09n": "./assets/images/cardImages/showersN.webp",
+        "10n": "./assets/images/cardImages/rainN.webp",
+        "11n": "./assets/images/cardImages/thunderstorm.webp",
+        "13n": "./assets/images/cardImages/snowN.webp",
+        "50n": "./assets/images/cardImages/mistN.webp",
     };
-  
+
     const weekdays = [
         "Sunday",
         "Monday",
@@ -55,7 +56,8 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
     const windDirections = {
-        10: "N",
+        0: "N",
+        10: "N/NE",
         20: "N/NE",
         30: "N/NE",
         40: "NE",
@@ -94,25 +96,44 @@ document.addEventListener("DOMContentLoaded", function () {
     };
     //#endregion
 
-    //#region Event Handlers
-    submitButton.addEventListener("click", getWeather, getCurrentWeather);
+    //#region  Event Handlers
+    geoLocationButton.addEventListener("click", getLocation);
+    locationInput.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            submitButton.click();
+        }
+    });
+    submitButton.addEventListener("click", async function () {
+        await getWeatherForecast();
+        await getCurrentWeather();
+    });
     cardToModalButtons.forEach(function(button) {button.addEventListener("click", function () {getHourlyWeatherByDay(this);});});
-    getLocation();
-    //#
-
+    //#endregion
+ 
     //#region Functions
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
-                geoLocation = {
-                    lat: position.coords.latitude,
-                    lon: position.coords.longitude
-                };
-                geoLocationURL = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
-                getCurrentWeather(geoLocationURL);getWeather(geoLocationURL);
+                handleGeoLocation(position);
             }, geoLocationError);
         } else {
             console.log("Geolocation is not supported by this browser.");
+        }  
+    }
+
+    async function handleGeoLocation(position) {
+        geoLocationURL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}`;
+        try {
+            const response = await fetch(geoLocationURL);
+            const data = await response.json();
+            if (data && data.length > 0) {
+                locationInput.value = data[0].name || (data[0].local_names && data[0].local_names.en) || data[0].state || "";
+            } else {
+                geoLocationError();
+            }
+        } catch (error) {
+            geoLocationError();
         }
     }
 
@@ -120,70 +141,72 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Sorry, no position available.");
     }
 
-    async function getCurrentWeather(geoLocationURL) {
+    async function getCurrentWeather() {
+        const url = await getAPIDataURL(apiKey, "current");
+
+        if (!url) {
+            alert("Location not found");
+            return;
+        }
+
         try {
-            const response = await fetch(geoLocationURL);
+            const response = await fetch(url);
             const data = await response.json();
-            currentWeatherData = data;
 
             currentWeatherCard.classList.add('show');
 
-            console.log(data);
-
-            let weatherIconCode = data.weather[0].icon;
-                    let iconUrl = "";
-                    for (let icon in weatherIcons) {
-                        if (icon === weatherIconCode) {
-                            iconUrl = weatherIcons[icon];
-                        }
+            if (data.cod == 200) {
+                let weatherIconCode = data.weather[0].icon;
+                let iconUrl = "";
+                for (let icon in weatherIcons) {
+                    if (icon === weatherIconCode) {
+                        iconUrl = weatherIcons[icon];
                     }
-                    currentWeatherCard.querySelector(`.weather-icon`)
-                        .innerHTML = `<img src="${iconUrl}" alt="Weather icon">`;
+                }
+                currentWeatherCard.querySelector(`.weather-icon`)
+                    .innerHTML = `<img src="${iconUrl}" alt="Weather icon">`;
 
-                    // Description Section
-                    let description = data.weather[0].description;
-                    let firstLetterCapitalised = description[0].toUpperCase();
-                    let descriptionCapitalised = description.replace(
-                        description[0],
-                        firstLetterCapitalised
-                    );
-                    currentWeatherCard.querySelector(`.description`)
-                        .innerHTML = `<strong>${descriptionCapitalised}</strong>`;
+                // Description Section
+                let description = data.weather[0].description;
+                let firstLetterCapitalised = description[0].toUpperCase();
+                let descriptionCapitalised = description.replace(
+                    description[0],
+                    firstLetterCapitalised
+                );
+                currentWeatherCard.querySelector(`.description`)
+                    .innerHTML = `<strong>${descriptionCapitalised}</strong>`;
 
-                    // Metrics Section
-                    currentWeatherCard.querySelector(`.temp`)
-                        .innerHTML = `<strong>${Math.round(data.main.temp)}°C</strong>`;
-                    
-                    currentWeatherCard.querySelector(`.sunrise`)
-                        .innerHTML = `Sunrise<br /><strong>${convertUnixTimeToDateTime(data.sys.sunrise)}</strong>`;
-                    currentWeatherCard.querySelector(`.sunset`)
-                        .innerHTML = `Sunset<br /><strong>${convertUnixTimeToDateTime(data.sys.sunset)}</strong>`;
-                    currentWeatherCard.querySelector(`.wind-direction`)
-                        .innerHTML = `Wind Direction<br /><strong>${calculateClosestWindDirectionForCurrent(data, windDirections)}</strong>`;
-                    currentWeatherCard.querySelector(`.wind-speed`)
-                        .innerHTML = `Wind Speed<br /><strong>${(data.wind.speed * 2.23694).toFixed(1)} mph</strong>`;
-        } catch {
-            currentWeatherCard.querySelector(`.dayOfTheWeek`) //Change to alert?
-                .innerHTML = `<p>Error fetching data.</p>`;
+                // Metrics Section
+                currentWeatherCard.querySelector(`.temp`)
+                    .innerHTML = `<strong>${Math.round(data.main.temp)}°C</strong>`;
+                
+                currentWeatherCard.querySelector(`.sunrise`)
+                    .innerHTML = `Sunrise<br /><strong>${convertUnixTimeToDateTime(data.sys.sunrise)}</strong>`;
+                currentWeatherCard.querySelector(`.sunset`)
+                    .innerHTML = `Sunset<br /><strong>${convertUnixTimeToDateTime(data.sys.sunset)}</strong>`;
+                currentWeatherCard.querySelector(`.wind-direction`)
+                    .innerHTML = `Wind Direction<br /><strong>${calculateClosestWindDirectionForCurrent(data, windDirections)}</strong>`;
+                currentWeatherCard.querySelector(`.wind-speed`)
+                    .innerHTML = `Wind Speed<br /><strong>${(data.wind.speed * 2.23694).toFixed(1)} mph</strong>`;
+            } else {
+                alert("Location not found");;
+            }
+        } catch (error) {
+            alert("Error fetching data");
+            console.error(error);
         }
     }
 
-    // 5 Day Forecast
-    async function getWeather(geoLocationURL) {
-        const url = await getAPIDataURL(apiKey, geoLocationURL);
+    async function getWeatherForecast() {
+        const url = await getAPIDataURL(apiKey);
 
         try {
             const response = await fetch(url);
             const data = await response.json();
             latestWeatherData = data;
-
-            console.log(data);
-
             document.querySelectorAll('.forecast-card').forEach(function(card) {
                 card.classList.add('show');
             });
-
-
 
             if (data.cod == 200) {
                 for (let i = 0; i < 5; i++) {
@@ -225,19 +248,18 @@ document.addEventListener("DOMContentLoaded", function () {
                         .innerHTML = `Wind Speed<br /><strong>${(data.list[i * 8].wind.speed * 2.23694).toFixed(1)} mph</strong>`;
                 }
             } else {
-                document.querySelector(`.dayOfTheWeek`) //Change to alert?
-                    .innerHTML = `<p>Location not found.</p>`;
+                alert("Location not found");;
             }
         } catch (error) {
-            document.querySelector(`.dayOfTheWeek`) //Change to alert?
-                .innerHTML = `<p>Error fetching data.</p>`;
+            alert("Error fetching data");
+            console.error(error);
         }
     }
 
     function getHourlyWeatherByDay(button) {
         const data = latestWeatherData;
         if (!data || data.cod != 200) {
-            document.querySelector(`.dayOfTheWeek`).innerHTML = `<p>No weather data available.</p>`; //Change to alert?
+            alert("No weather data available");
             return;
         }
 
@@ -279,32 +301,31 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('.modal-content').innerHTML = modalContent;
     }
 
-    async function getAPIDataURL(apiKey, geoLocationURL) {
+    async function getAPIDataURL(apiKey, type = "forecast") {
         let url = "";
-        const locationInput = document.querySelector("#locationInput");
         const location = locationInput ? locationInput.value.trim() : "";
 
         if (location !== "") {
-            const urlGeo = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${apiKey}`;
+            const urlGeo = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${apiKey}&units=metric`;
             const responseGeo = await fetch(urlGeo);
             const dataGeo = await responseGeo.json();
 
             if (dataGeo && dataGeo.length > 0) {
-                url = `https://api.openweathermap.org/data/2.5/forecast?lat=${dataGeo[0].lat}&lon=${dataGeo[0].lon}&appid=${apiKey}&units=metric`;
-            } else {
-                throw new Error("Location not found.");
+                const lat = dataGeo[0].lat;
+                const lon = dataGeo[0].lon;
+                if (type === "current") {
+                    url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+                } else {
+                    url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+                }
             }
-        }
-        else if (geoLocationURL && geoLocation && geoLocation.lat != null && geoLocation.lon != null) {
-            url = `https://api.openweathermap.org/data/2.5/forecast?lat=${geoLocation.lat}&lon=${geoLocation.lon}&appid=${apiKey}&units=metric`;
         }
         return url;
     }
 
     function convertUnixTimeToDateTime(unixTime) {
         let date = new Date(unixTime * 1000);
-        let hours =
-            date.getHours() > 9 ? date.getHours() : `0${date.getHours()}`;
+        let hours = date.getHours().toString().padStart(2, "0");
         let minutes = date.getMinutes().toString().padStart(2, "0");
         return `${hours}:${minutes}`;
     }
@@ -324,19 +345,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function calculateClosestWindDirectionForCurrent(data, windDirections) {
-    let windDirectionDegree = data.wind.deg;
-    let closestWindDirection = null;
-    let minDiff = 360;
-    for (let windDegree in windDirections) {
-        let diff = Math.abs(windDirectionDegree - Number(windDegree));
-        if (diff < minDiff) {
-            minDiff = diff;
-            closestWindDirection = windDirections[windDegree];
+        let windDirectionDegree = data.wind.deg;
+        let closestWindDirection = null;
+        let minDiff = 360;
+        for (let windDegree in windDirections) {
+            let diff = Math.abs(windDirectionDegree - Number(windDegree));
+            if (diff < minDiff) {
+                minDiff = diff;
+                closestWindDirection = windDirections[windDegree];
+            }
         }
+        return closestWindDirection;
     }
-    return closestWindDirection;
-    }
-
 
     function convertDateToYYYYMMDD(dayText, months) {
         let [, day, month] = dayText.split(" ");
@@ -348,20 +368,4 @@ document.addEventListener("DOMContentLoaded", function () {
         return currentCardDate;
     }
     //#endregion
-
-    // All code above this line
 });
-
-// TODO -------------
-
-//set default location on website load or hide cards until submit is clicked
-
-//for daily weather, ensure average or midday weather is taken to prevent night icons being used for forecasted days (not current day!)
-
-//geo location option
-
-//post code search
-
-//use enter key like a click of submit
-
-//after submit, replace typed location with the found location...eg falmouth => Falmouth, GB ........city.name + , + city.country
