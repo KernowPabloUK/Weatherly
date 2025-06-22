@@ -176,8 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         iconUrl = weatherIcons[icon];
                     }
                 }
-                currentWeatherCard.querySelector(`.weather-icon`)
-                    .innerHTML = `<img src="${iconUrl}" alt="Weather icon">`;
+                currentWeatherCard.querySelector(`.weather-icon`).src = iconUrl;
 
                 // Description Section
                 let description = data.weather[0].description;
@@ -291,7 +290,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div id="modal-card${index + 1}" class="card my-3 m-auto shadow" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-4 text-center align-content-center">
-                            <div class="weather-icon"><img src="${iconUrl}" alt="Weather icon"></div>
+                            <div><img class="weather-icon" src="${iconUrl}" alt="Weather icon"></div>
                         </div>
                         <div class="col-8">
                             <div class="card-body row">
