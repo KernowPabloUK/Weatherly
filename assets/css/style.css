@@ -66,7 +66,44 @@ h1 {
   border-radius: 16px;
 }
 
+/* Footer styles */
+footer {
+    background-color: var(--nighttime);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.8rem; /* Adjust icon size */
+}
+
+.social-icons a {
+    margin: 0 10px;
+    
+    color: white;
+}
+
+.social-icons a:hover {
+    color: black; /* Change color on hover */
+}
+
 /* Media query */
+@media (min-width: 768px) {
+    footer.row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: stretch;
+    }
+    footer.row > div {
+        flex: 1 1 0;
+        max-width: 33.3333%;
+        display: flex;
+        flex-direction: column; /* Make content stack vertically */
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+}
+
 @media (min-width: 992px) {
     /* Arrange forecast cards in a row, currentWeatherCard above */
     .weather-cards {
@@ -114,23 +151,7 @@ h1 {
         order: 2;
         padding-bottom: 1rem;
     }
-}
-
-/* Footer styles */
-footer {
-    background-color: var(--nighttime);
-    color: white;
-    padding: 1rem;
-    text-align: center;
-    font-size: 0.9rem;
-}
-
-.social-icons a {
-    margin: 0 10px;
-    font-size: 24px; /* Adjust icon size */
-    color: white;
-}
-
-.social-icons a:hover {
-    color: black; /* Change color on hover */
+    footer.row > div {
+        flex-direction: row;
+    }
 }
