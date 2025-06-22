@@ -176,8 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         iconUrl = weatherIcons[icon];
                     }
                 }
-                currentWeatherCard.querySelector(`.weather-icon`)
-                    .innerHTML = `<img src="${iconUrl}" alt="Weather icon">`;
+                currentWeatherCard.querySelector(`.weather-icon`).src = iconUrl;
 
                 // Description Section
                 let description = data.weather[0].description;
