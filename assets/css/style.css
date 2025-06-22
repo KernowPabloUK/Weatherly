@@ -51,7 +51,7 @@ h1 {
 #card3.show,
 #card4.show,
 #card5.show,
-#currentWeatherCard {
+#currentWeatherCard.show {
     display: block;
 }
 
