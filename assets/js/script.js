@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let latestWeatherData = null;
     let geoLocationURL = null;
     const apiKey = "0acafacede1fa597f8b4258fff3abb0d";
-    const locationInput = document.querySelector("#locationInput");
+    const locationInput = document.querySelector("#locationInput"); 
     const geoLocationButton = document.querySelector('#geoLocationButton');
     const submitButton = document.querySelector("#submit");
     let cardToModalButtons = document.querySelectorAll(".card-to-modal");
@@ -128,7 +128,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const response = await fetch(geoLocationURL);
             const data = await response.json();
             if (data && data.length > 0) {
-                locationInput.value = data[0].name || (data[0].local_names && data[0].local_names.en) || data[0].state || "";
+                const city = data[0].name || (data[0].local_names && data[0].local_names.en) || data[0].state || "";
+                const country = data[0].country ? `, ${data[0].country}` : "";
+                locationInput.value = city + country;
             } else {
                 geoLocationError();
             }
@@ -143,7 +145,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function getCurrentWeather() {
         const url = await getAPIDataURL(apiKey, "current");
-
+        const urlGeo = `https://api.openweathermap.org/geo/1.0/direct?q=${locationInput.value.trim()}&limit=1&appid=${apiKey}`;
+        try {
+            const responseGeo = await fetch(urlGeo);
+            const dataGeo = await responseGeo.json();
+            if (dataGeo && dataGeo.length > 0) {
+            const city = dataGeo[0].name || "";
+            const country = dataGeo[0].country ? `, ${dataGeo[0].country}` : "";
+            locationInput.value = city + country;
+            }
+        } catch (e) {
+            // Ignore errors, keep original input
+        }
         if (!url) {
             alert("Location not found");
             return;
