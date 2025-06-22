@@ -116,4 +116,21 @@ h1 {
     }
 }
 
+/* Footer styles */
+footer {
+    background-color: var(--nighttime);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
 
+.social-icons a {
+    margin: 0 10px;
+    font-size: 24px; /* Adjust icon size */
+    color: white;
+}
+
+.social-icons a:hover {
+    color: black; /* Change color on hover */
+}
