@@ -12,7 +12,7 @@
     <meta name="robots" content="index, follow">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
-    <title>Weatherly | Your Forecast, at a Glance</title>
+    <title>Weatherly | Your Weather, at a click</title>
 
     <!-- Bootstrap CSS Stylesheet -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -33,6 +33,9 @@
                     <button id="submit" class="mt-2 shadow btn btn-secondary">Submit</button>
                 </div>
             </div>
+            <div id="sub-header-current" class="my-4 text-center">
+            <h2>Current Weather</h2>
+            </div>
             <div class="weather-cards">
                 <div id="currentWeatherCard" class="card card-to-modal my-3 m-auto shadow" style="max-width: 540px;">
                     <div class="row g-0">
@@ -41,7 +44,7 @@
                         </div>
                         <div class="col-8">
                             <div class="card-body row">
-                                <p class="dayOfTheWeek card-title">Current Weather</p>
+                                <p class="dayOfTheWeek card-title"></p>
                                 <div class="col-6">
                                     <p class="temp card-text">% 18 degrees %</p>
                                 </div>
@@ -55,6 +58,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div id="sub-header-forecast" class="my-4 text-center sub-header">
+                    <h2>5 Day Forecast</h2>
+                    <p><em>Click day for more details</em></p>
                 </div>
                 <div class="weather-cards-row">
                     <div id="card1" class="forecast-card card card-to-modal my-3 m-auto shadow"

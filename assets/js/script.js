@@ -167,6 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await response.json();
 
             currentWeatherCard.classList.add('show');
+            document.querySelector("#sub-header-current").classList.add('show');
 
             if (data.cod == 200) {
                 let weatherIconCode = data.weather[0].icon;
@@ -218,6 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
             latestWeatherData = data;
             document.querySelectorAll('.forecast-card').forEach(function(card) {
                 card.classList.add('show');
+                document.querySelector("#sub-header-forecast").classList.add('show');
             });
 
             if (data.cod == 200) {

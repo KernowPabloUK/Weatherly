@@ -42,7 +42,9 @@ h1 {
 #card3,
 #card4,
 #card5,
-#currentWeatherCard {
+#currentWeatherCard,
+#sub-header-current,
+#sub-header-forecast {
     display: none;
 }
 
@@ -51,7 +53,9 @@ h1 {
 #card3.show,
 #card4.show,
 #card5.show,
-#currentWeatherCard.show {
+#currentWeatherCard.show,
+#sub-header-current.show,
+#sub-header-forecast.show {
     display: block;
 }
 
