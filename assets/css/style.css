@@ -7,6 +7,11 @@
     --overcast: #90959f;
     --nighttime: #22283d;
 }
+
+html, body {
+  overflow-x: hidden;
+}
+
 body {
     background-color: #fafafa;
     font-family: var(--body-font);
@@ -83,6 +88,26 @@ footer {
     color: black; /* Change color on hover */
 }
 
+/* Placeholder Image */
+#forecast-container {
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#placeholderImage {
+  width: 100%;
+  max-width: 100vw;
+  height: auto;
+  max-height: 100vh;
+  object-fit: contain;
+  display: block;
+}
+
 /* Media query */
 @media (min-width: 768px) {
     footer.row {
@@ -154,23 +179,3 @@ footer {
     }
 }
 
-/* Placeholder Image */
-#forecast-container {
-  flex: 1 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 0;
-  height: 100%;
-  width: 100%;
-}
-
-#placeholderImage {
-  max-width: 100vw;
-  max-height: 100vh;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  background: #fafafa; /* Optional: matches your site background */
-}
