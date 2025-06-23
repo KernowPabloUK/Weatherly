@@ -24,7 +24,7 @@
 <body class="d-flex flex-column min-vh-100">
     <header>
         <div class="container">
-            <h1 class="my-4 text-center">Weatherly</h1>
+            <a href="/" class="my-4 text-center d-block h1 text-decoration-none">Weatherly</a>
             <div class="row justify-content-center">
                 <div class="col-6 col-md-4 d-flex flex-column align-items-center">
                     <input id="locationInput" class="form-control mb-2" type="text" placeholder="Enter location">
@@ -37,8 +37,6 @@
 
     <main class="flex-shrink-0">
         <div id="forecast-container">
-            <img id="placeholderImage" src="./assets/images/placeholderImage.webp" alt="Your Weather, at a click"
-                class="img-fluid" />
         </div>
         <div id="sub-header-current" class="mt-3 mb-2 text-center sub-header">
             <h2>Current Weather</h2>
@@ -47,7 +45,7 @@
             <div id="currentWeatherCard" class="card card-to-modal m-auto shadow" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-4 text-center align-content-center">
-                        <div><img class="weather-icon" alt="Weather Icon"></div>
+                        <div><img class="weather-icon" src="" alt="Weather Icon"></div>
                     </div>
                     <div class="col-8">
                         <div class="card-body row">
@@ -71,7 +69,7 @@
                 <p><em>Click day for more details</em></p>
             </div>
             <div class="weather-cards-row">
-                <div id="card1" class="forecast-card card card-to-modal my-3 m-auto shadow" style="max-width: 540px;"
+                <div id="card1" class="forecast-card card card-to-modal mt-3 m-auto shadow" style="max-width: 540px;"
                     data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <div class="row g-0">
                         <div class="col-4 text-center align-content-center">
