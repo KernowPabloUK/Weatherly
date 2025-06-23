@@ -12,6 +12,7 @@
     <meta name="robots" content="index, follow">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
+    <title>Weatherly | Your Weather, at a click</title>
     <title>Your Weather, at a click</title>
 
     <!-- Bootstrap CSS Stylesheet -->
@@ -25,32 +26,60 @@
 <body class="d-flex flex-column min-vh-100">
 
     <header>
-    <div class="container">
-        <h1 class="my-4 text-center">Weatherly</h1>
-        <div class="row justify-content-center">
-            <div class="col-6 col-md-4 d-flex flex-column align-items-center">
-                <input id="locationInput" class="form-control mb-2" type="text" placeholder="Enter location">
-                <button id="geoLocationButton" class="mt-2 shadow btn btn-secondary">Get my location</button>
-                <button id="submit" class="mt-2 shadow btn btn-secondary">Submit</button>
+        <div class="container">
+            <h1 class="my-4 text-center">Weatherly</h1>
+            <div class="row justify-content-center">
+                <div class="col-6 col-md-4 d-flex flex-column align-items-center">
+                    <input id="locationInput" class="form-control mb-2" type="text" placeholder="Enter location">
+                    <button id="geoLocationButton" class="mt-2 shadow btn btn-secondary">Get my location</button>
+                    <button id="submit" class="mt-2 shadow btn btn-secondary">Submit</button>
+                </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
     <main class="flex-shrink-0">
-<div id="forecast-container">
-    <img id="placeholderImage" src="./assets/images/placeholderImage.webp" alt="Your Weather, at a click" class="img-fluid" />
-</div>
-
-            <div class="weather-cards">
-                <div id="currentWeatherCard" class="card card-to-modal my-3 m-auto shadow" style="max-width: 540px;">
+        <div id="forecast-container">
+            <img id="placeholderImage" src="./assets/images/placeholderImage.webp" alt="Your Weather, at a click"
+                class="img-fluid" />
+        </div>
+        <div class="weather-cards">
+            <div id="currentWeatherCard" class="card card-to-modal my-3 m-auto shadow" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-4 text-center align-content-center">
+                        <div><img class="weather-icon" alt="Weather Icon"></div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body row">
+                            <p class="dayOfTheWeek card-title"></p>
+                            <div class="col-6">
+                                <p class="temp card-text">% 18 degrees %</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="description card-text">% Sunny/Cloudy %</p>
+                            </div>
+                            <p class="sunrise card-text col-6 "><small>% Sunrise %</small></p>
+                            <p class="sunset card-text col-6"><small>% Sunset %</small></p>
+                            <p class="wind-direction card-text col-6"><small>% Wind Direction %</small></p>
+                            <p class="wind-speed card-text col-6"><small>% Wind Speed %</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="sub-header-forecast" class="my-4 text-center sub-header">
+                <h2>5 Day Forecast</h2>
+                <p><em>Click day for more details</em></p>
+            </div>
+            <div class="weather-cards-row">
+                <div id="card1" class="forecast-card card card-to-modal my-3 m-auto shadow" style="max-width: 540px;"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <div class="row g-0">
                         <div class="col-4 text-center align-content-center">
                             <div><img class="weather-icon" alt="Weather Icon"></div>
                         </div>
                         <div class="col-8">
                             <div class="card-body row">
-                                <p class="dayOfTheWeek card-title">Current Weather</p>
+                                <p class="dayOfTheWeek card-title">% Day Of The Week %</p>
                                 <div class="col-6">
                                     <p class="temp card-text">% 18 degrees %</p>
                                 </div>
@@ -65,133 +94,109 @@
                         </div>
                     </div>
                 </div>
-                <div class="weather-cards-row">
-                    <div id="card1" class="forecast-card card card-to-modal my-3 m-auto shadow"
-                        style="max-width: 540px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <div class="row g-0">
-                            <div class="col-4 text-center align-content-center">
-                                <div><img class="weather-icon" alt="Weather Icon"></div>
-                            </div>
-                            <div class="col-8">
-                                <div class="card-body row">
-                                    <p class="dayOfTheWeek card-title">% Day Of The Week %</p>
-                                    <div class="col-6">
-                                        <p class="temp card-text">% 18 degrees %</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="description card-text">% Sunny/Cloudy %</p>
-                                    </div>
-                                    <p class="sunrise card-text col-6 "><small>% Sunrise %</small></p>
-                                    <p class="sunset card-text col-6"><small>% Sunset %</small></p>
-                                    <p class="wind-direction card-text col-6"><small>% Wind Direction %</small></p>
-                                    <p class="wind-speed card-text col-6"><small>% Wind Speed %</small></p>
+                <div id="card2" class="forecast-card card card-to-modal my-3 m-auto shadow" style="max-width: 540px;"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <div class="row g-0">
+                        <div class="col-4 text-center align-content-center">
+                            <div><img class="weather-icon" alt="Weather Icon"></div>
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body row">
+                                <p class="dayOfTheWeek card-title">% Day Of The Week %</p>
+                                <div class="col-6">
+                                    <p class="temp card-text">% 18 degrees %</p>
                                 </div>
+                                <div class="col-6">
+                                    <p class="description card-text">% Sunny/Cloudy %</p>
+                                </div>
+                                <p class="sunrise card-text col-6 "><small>% Sunrise %</small></p>
+                                <p class="sunset card-text col-6 "><small>% Sunset %</small></p>
+                                <p class="wind-direction card-text col-6"><small>% Wind Direction %</small></p>
+                                <p class="wind-speed card-text col-6"><small>% Wind Speed %</small></p>
                             </div>
                         </div>
                     </div>
-                    <div id="card2" class="forecast-card card card-to-modal my-3 m-auto shadow"
-                        style="max-width: 540px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <div class="row g-0">
-                            <div class="col-4 text-center align-content-center">
-                                <div><img class="weather-icon" alt="Weather Icon"></div>
-                            </div>
-                            <div class="col-8">
-                                <div class="card-body row">
-                                    <p class="dayOfTheWeek card-title">% Day Of The Week %</p>
-                                    <div class="col-6">
-                                        <p class="temp card-text">% 18 degrees %</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="description card-text">% Sunny/Cloudy %</p>
-                                    </div>
-                                    <p class="sunrise card-text col-6 "><small>% Sunrise %</small></p>
-                                    <p class="sunset card-text col-6 "><small>% Sunset %</small></p>
-                                    <p class="wind-direction card-text col-6"><small>% Wind Direction %</small></p>
-                                    <p class="wind-speed card-text col-6"><small>% Wind Speed %</small></p>
+                </div>
+                <div id="card3" class="forecast-card card card-to-modal my-3 m-auto shadow" style="max-width: 540px;"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <div class="row g-0">
+                        <div class="col-4 text-center align-content-center">
+                            <div><img class="weather-icon" alt="Weather Icon"></div>
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body row">
+                                <p class="dayOfTheWeek card-title">% Day Of The Week %</p>
+                                <div class="col-6">
+                                    <p class="temp card-text">% 18 degrees %</p>
                                 </div>
+                                <div class="col-6">
+                                    <p class="description card-text">% Sunny/Cloudy %</p>
+                                </div>
+                                <p class="sunrise card-text col-6 "><small>% Sunrise %</small></p>
+                                <p class="sunset card-text col-6 "><small>% Sunset %</small></p>
+                                <p class="wind-direction card-text col-6"><small>% Wind Direction %</small></p>
+                                <p class="wind-speed card-text col-6"><small>% Wind Speed %</small></p>
                             </div>
                         </div>
                     </div>
-                    <div id="card3" class="forecast-card card card-to-modal my-3 m-auto shadow"
-                        style="max-width: 540px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <div class="row g-0">
-                            <div class="col-4 text-center align-content-center">
-                                <div><img class="weather-icon" alt="Weather Icon"></div>
-                            </div>
-                            <div class="col-8">
-                                <div class="card-body row">
-                                    <p class="dayOfTheWeek card-title">% Day Of The Week %</p>
-                                    <div class="col-6">
-                                        <p class="temp card-text">% 18 degrees %</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="description card-text">% Sunny/Cloudy %</p>
-                                    </div>
-                                    <p class="sunrise card-text col-6 "><small>% Sunrise %</small></p>
-                                    <p class="sunset card-text col-6 "><small>% Sunset %</small></p>
-                                    <p class="wind-direction card-text col-6"><small>% Wind Direction %</small></p>
-                                    <p class="wind-speed card-text col-6"><small>% Wind Speed %</small></p>
+                </div>
+                <div id="card4" class="forecast-card card card-to-modal my-3 m-auto shadow" style="max-width: 540px;"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <div class="row g-0">
+                        <div class="col-4 text-center align-content-center">
+                            <div><img class="weather-icon" alt="Weather Icon"></div>
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body row">
+                                <p class="dayOfTheWeek card-title">% Day Of The Week %</p>
+                                <div class="col-6">
+                                    <p class="temp card-text">% 18 degrees %</p>
                                 </div>
+                                <div class="col-6">
+                                    <p class="description card-text">% Sunny/Cloudy %</p>
+                                </div>
+                                <p class="sunrise card-text col-6 "><small>% Sunrise %</small></p>
+                                <p class="sunset card-text col-6 "><small>% Sunset %</small></p>
+                                <p class="wind-direction card-text col-6"><small>% Wind Direction %</small></p>
+                                <p class="wind-speed card-text col-6"><small>% Wind Speed %</small></p>
                             </div>
                         </div>
                     </div>
-                    <div id="card4" class="forecast-card card card-to-modal my-3 m-auto shadow"
-                        style="max-width: 540px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <div class="row g-0">
-                            <div class="col-4 text-center align-content-center">
-                                <div><img class="weather-icon" alt="Weather Icon"></div>
-                            </div>
-                            <div class="col-8">
-                                <div class="card-body row">
-                                    <p class="dayOfTheWeek card-title">% Day Of The Week %</p>
-                                    <div class="col-6">
-                                        <p class="temp card-text">% 18 degrees %</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="description card-text">% Sunny/Cloudy %</p>
-                                    </div>
-                                    <p class="sunrise card-text col-6 "><small>% Sunrise %</small></p>
-                                    <p class="sunset card-text col-6 "><small>% Sunset %</small></p>
-                                    <p class="wind-direction card-text col-6"><small>% Wind Direction %</small></p>
-                                    <p class="wind-speed card-text col-6"><small>% Wind Speed %</small></p>
-                                </div>
-                            </div>
+                </div>
+                <div id="card5" class="forecast-card card card-to-modal my-3 m-auto shadow" style="max-width: 540px;"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <div class="row g-0">
+                        <div class="col-4 text-center align-content-center">
+                            <div><img class="weather-icon" alt="Weather Icon"></div>
                         </div>
-                    </div>
-                    <div id="card5" class="forecast-card card card-to-modal my-3 m-auto shadow"
-                        style="max-width: 540px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <div class="row g-0">
-                            <div class="col-4 text-center align-content-center">
-                                <div><img class="weather-icon" alt="Weather Icon"></div>
-                            </div>
-                            <div class="col-8">
-                                <div class="card-body row">
-                                    <p class="dayOfTheWeek card-title">% Day Of The Week %</p>
-                                    <div class="col-6">
-                                        <p class="temp card-text">% 18 degrees %</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="description card-text">% Sunny/Cloudy %</p>
-                                    </div>
-                                    <p class="sunrise card-text col-6 "><small>% Sunrise %</small></p>
-                                    <p class="sunset card-text col-6 "><small>% Sunset %</small></p>
-                                    <p class="wind-direction card-text col-6"><small>% Wind Direction %</small></p>
-                                    <p class="wind-speed card-text col-6"><small>% Wind Speed %</small></p>
+                        <div class="col-8">
+                            <div class="card-body row">
+                                <p class="dayOfTheWeek card-title">% Day Of The Week %</p>
+                                <div class="col-6">
+                                    <p class="temp card-text">% 18 degrees %</p>
                                 </div>
+                                <div class="col-6">
+                                    <p class="description card-text">% Sunny/Cloudy %</p>
+                                </div>
+                                <p class="sunrise card-text col-6 "><small>% Sunrise %</small></p>
+                                <p class="sunset card-text col-6 "><small>% Sunset %</small></p>
+                                <p class="wind-direction card-text col-6"><small>% Wind Direction %</small></p>
+                                <p class="wind-speed card-text col-6"><small>% Wind Speed %</small></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
-                <div class="modal-dialog">
-                    <div class="modal-content ">
-                    </div>
-                </div>
-                <div class="modal-footer">
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog">
+                <div class="modal-content ">
                 </div>
             </div>
+            <div class="modal-footer">
+            </div>
+        </div>
         </div>
     </main>
     <!-- TODO: Footer - Basic Copyright - Links to our Githubs?? - Links to weather warnings?? - Socials?? -->
@@ -204,7 +209,7 @@
             <a href="https://weather.metoffice.gov.uk/warnings-and-advice/uk-warnings#?date=2025-06-22" target="_blank"
                 aria-label="Visit the Met Office Weather Warnings (opens in a new tab)" rel="noopener">
                 <span class="ms-2 me-2">Met Office Weather Warnings</span></a>
-                    
+
         </div>
 
         <div class="col-12 col-md-4 social-icons my-4 d-flex justify-content-center">
