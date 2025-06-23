@@ -8,18 +8,24 @@
     --overcast-secondary: rgb(144, 149, 159, 0.16);
     --nighttime: #22283d;
 }
+
+html,
+body {
+    overflow-x: hidden;
+}
+
 body {
     background-color: #fafafa;
     font-family: var(--body-font);
 }
 h1 {
     font-family: var(--header-font);
-    color: #fafafa
+    color: #fafafa;
 }
 
 #geoLocationButton {
-    background-color:whitesmoke;
-    color:black
+    background-color: whitesmoke;
+    color: black;
 }
 
 #submit {
@@ -35,22 +41,22 @@ header {
     font-size: 1.5rem;
 }
 
-h1.my-4 { 
+h1.my-4 {
     font-size: 60px;
     font-weight: 550;
 }
 
 #geoLocationButton {
-    background-color:whitesmoke;
-    color:black
+    background-color: whitesmoke;
+    color: black;
 }
 
 main.flex-shrink-0 {
-  flex: 1 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 0;
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 0;
 }
 
 #card1,
@@ -111,6 +117,26 @@ footer {
     color: var(--blue-skies); /* Change color on hover */
 }
 
+/* Placeholder Image */
+#forecast-container {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#placeholderImage {
+    width: 100%;
+    max-width: 100vw;
+    height: auto;
+    max-height: 100vh;
+    object-fit: contain;
+    display: block;
+}
+
 /* Media query */
 @media (min-width: 768px) {
     footer.row {
@@ -119,7 +145,7 @@ footer {
         justify-content: center;
         align-items: stretch;
     }
-  
+
     footer.row > div {
         flex: 1 1 0;
         max-width: 33.3333%;
@@ -181,25 +207,4 @@ footer {
     footer.row > div {
         flex-direction: row;
     }
-}
-
-/* Placeholder Image */
-#forecast-container {
-  flex: 1 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 0;
-  height: 100%;
-  width: 100%;
-}
-
-#placeholderImage {
-  max-width: 100vw;
-  max-height: 100vh;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  background: #fafafa; /* Optional: matches your site background */
 }
