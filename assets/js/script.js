@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     cardToModalButtons.forEach(function(button) {button.addEventListener("click", function () {getHourlyWeatherByDay(this);});});
     //#endregion
- 
+
     //#region Functions
     function getLocation() {
         if (navigator.geolocation) {
