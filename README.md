@@ -61,16 +61,33 @@ quick and easy.
 ![Google Font Typography]()
 
 ### Testing & Validation
+- Code Validation 
+All HTML and CSS code was validated using the W3C Markup Validation Service and W3C CSS Validation Service, respectively. The results are as follows:
 
-#### Initial HTML Verification index.html
+### Initial HTML Verification index.html
+- Nine errors were found in the HTML code and corrected by line validation. All elements are properly nested and closed, ensuring a well-structured document.
+
+![Debug errors](assets/images/Debug%20errors.png)
+
+![debug errors 1](assets/images/debug%20errors%201.png)
+
+## After Debugging
+
+![fixed](assets/images/debug%20fixed.png)
+
+### CSS Verification of styles.css
+
+![CSS](assets/images/CSS%20validate.png)
+
+
+
 
 //TODO
-![Initial HTML Verification of resources.html]()
 
-#### CSS Verification of styles.css
 
-//TODO
-![CSS Verification of styles.css]()
+
+
+
 
 #### Lighthouse tests
 
