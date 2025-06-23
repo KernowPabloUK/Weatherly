@@ -40,6 +40,8 @@ allowing for manual correction. This sped up the process of debugging greatly an
 Copilot was also used to generate the code for media queries to alter the display of the weather cards from horizontal to vertical. This made an otherwise laborious process
 quick and easy.
 
+All of the images used were generated using Microsoft Copilot, including all the the individual weather icons and the background placeholder image.
+
 ## Documents
 
 ### Wireframes
@@ -87,6 +89,17 @@ quick and easy.
 //TODO
 
 ### Future Features
+
+Here's a glimpse of what future releases of Weatherly would look like:
+
+- A feature where users can switch between saved locations in on click/tap
+- A feature which will display moonrise and moonset based on location, with the relevant moon phase icons
+- A dynamic background image/animcation that changes based on the weather conditions
+- Currently Weatherly has a link to the Met Office to provide weather warnings, future releases would ideally 
+  include a standalone Weatherly Weather alerts feature
+- Using the OpenWeather API we were limited to a 5 day weekly forecast and a 3 hour daily forecast, in a future 
+release we would look to source more accurate data so we could provide more detailed and accurate updates.
+- Finally, once the above features were implemented, creating a Weatherly App would be the long term goal. 
 
 //TODO
 
