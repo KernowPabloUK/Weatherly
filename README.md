@@ -13,7 +13,21 @@ openweathermap API to provide useful data for a location provided by the user.
 
 ## Features
 
-//TODO
+The sites header section features a text box for user input. There is also the option to press the "Get my location" button which populates the text input box with the user's current location. The submit button runs the javascript to generate the various weather cards.
+
+![Header section](assets/images/readme/feature-header.png)
+
+A card featuring the current weather using data from Openweathermap's "Current Weather Data" API is shown upon submitting a location. 
+
+![Current weather](assets/images/readme/feature-current.png)
+
+Beneath the current weather is a 5 day forecast using data from Openweathermap's "5 Day / 3 Hour Forecast" API.
+
+![5 day forecast](assets/images/readme/feature-5-day.png)
+
+Each of the 5 day forecast cards can be clicked to show a modal with the day split into 3 hour segments, each shown on a seperate card.
+
+![3 hour modal](assets/images/readme/feature-modal.png)
 
 ## Deployment Procedure
 
