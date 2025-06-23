@@ -119,22 +119,13 @@ footer {
 
 /* Placeholder Image */
 #forecast-container {
-    flex: 1 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 0;
-    height: 100%;
-    width: 100%;
-}
-
-#placeholderImage {
-    width: 100%;
-    max-width: 100vw;
-    height: auto;
-    max-height: 100vh;
-    object-fit: contain;
-    display: block;
+    background: url("../images/placeholderImageL.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 60vh;
+    min-width: 100vh;
+    background-position: 30% 80%;
 }
 
 /* Media query */
