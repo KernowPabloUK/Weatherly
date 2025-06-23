@@ -14,7 +14,17 @@ body {
 }
 h1 {
     font-family: var(--header-font);
-    color: #fafafa;
+    color: #fafafa
+}
+
+#geoLocationButton {
+    background-color:whitesmoke;
+    color:black
+}
+
+#submit {
+    background-color: white;
+    color: black;
 }
 
 header {
@@ -23,6 +33,16 @@ header {
     padding: 1rem;
     text-align: center;
     font-size: 1.5rem;
+}
+
+h1.my-4 { 
+    font-size: 60px;
+    font-weight: 550;
+}
+
+#geoLocationButton {
+    background-color:whitesmoke;
+    color:black
 }
 
 main.flex-shrink-0 {
@@ -64,7 +84,6 @@ main.flex-shrink-0 {
 }
 
 /* weather-icons */
-
 .weather-icon {
     width: 120px;
     height: 120px;
@@ -100,6 +119,7 @@ footer {
         justify-content: center;
         align-items: stretch;
     }
+  
     footer.row > div {
         flex: 1 1 0;
         max-width: 33.3333%;
