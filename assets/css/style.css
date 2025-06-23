@@ -5,6 +5,7 @@
     --body-font: "DM Sans", sans-serif;
     --blue-skies: #87ceeb;
     --overcast: #90959f;
+    --overcast-secondary: rgb(144, 149, 159, 0.16);
     --nighttime: #22283d;
 }
 body {
@@ -44,6 +45,14 @@ header {
 #sub-header-current.show,
 #sub-header-forecast.show {
     display: block;
+}
+
+#card1:hover,
+#card2:hover,
+#card3:hover,
+#card4:hover,
+#card5:hover {
+    background-color: var(--overcast-secondary);
 }
 
 /* weather-icons */
