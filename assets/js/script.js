@@ -381,3 +381,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     //#endregion
 });
+
+
+
+// Placeholder Image// 
+document.getElementById("submit").addEventListener("click", function () {
+  // Hide the placeholder image
+  document.getElementById("forecast-container").style.display = "none";
+
+  // Show the forecast container
+  const forecast = document.getElementById("forecast");
+  forecast.style.display = "block";
+});
