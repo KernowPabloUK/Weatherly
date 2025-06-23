@@ -41,7 +41,7 @@ header {
     font-size: 1.5rem;
 }
 
-h1.my-4 {
+header .h1 {
     font-size: 60px;
     font-weight: 550;
 }
@@ -108,6 +108,10 @@ footer {
     font-size: 0.8rem; /* Adjust icon size */
 }
 
+footer a {
+    text-decoration: none;
+}
+
 .social-icons a {
     margin: 0 10px;
     color: white;
@@ -129,11 +133,12 @@ footer {
 }
 
 /* Media query */
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
     footer.row {
         display: flex;
         flex-direction: row;
         justify-content: center;
+        align-items: stretch;
         align-items: stretch;
     }
 
@@ -148,13 +153,14 @@ footer {
     }
 }
 
-@media (min-width: 992px) {
+@media screen and (min-width: 992px) {
     /* Arrange forecast cards in a row, currentWeatherCard above */
     .weather-cards {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 1rem;
+        margin: 0 1rem;
     }
     .weather-cards-row {
         display: flex;
