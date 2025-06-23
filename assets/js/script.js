@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     cardToModalButtons.forEach(function(button) {button.addEventListener("click", function () {getHourlyWeatherByDay(this);});});
     //#endregion
- 
+
     //#region Functions
     function getLocation() {
         if (navigator.geolocation) {
@@ -167,6 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await response.json();
 
             currentWeatherCard.classList.add('show');
+            document.querySelector("#sub-header-current").classList.add('show');
 
             if (data.cod == 200) {
                 let weatherIconCode = data.weather[0].icon;
@@ -212,12 +213,15 @@ document.addEventListener("DOMContentLoaded", function () {
     async function getWeatherForecast() {
         const url = await getAPIDataURL(apiKey);
 
+        document.getElementById("forecast-container").style.display = "none";
+        
         try {
             const response = await fetch(url);
             const data = await response.json();
             latestWeatherData = data;
             document.querySelectorAll('.forecast-card').forEach(function(card) {
                 card.classList.add('show');
+                document.querySelector("#sub-header-forecast").classList.add('show');
             });
 
             if (data.cod == 200) {
@@ -380,16 +384,4 @@ document.addEventListener("DOMContentLoaded", function () {
         return currentCardDate;
     }
     //#endregion
-});
-
-
-
-// Placeholder Image// 
-document.getElementById("submit").addEventListener("click", function () {
-  // Hide the placeholder image
-  document.getElementById("forecast-container").style.display = "none";
-
-  // Show the forecast container
-  const forecast = document.getElementById("forecast");
-  forecast.style.display = "block";
 });
