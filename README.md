@@ -4,7 +4,7 @@ Team Hackathon CI Weather App Project
 
 Authors: Paul Morgan, David Noble, Nadeem Sardar, Josh Thould
 
-//TODO Responsive Image
+![Responsive Image](./assets/images/readme/Responsive-Image.png)
 
 ## Description
 
@@ -42,6 +42,8 @@ quick and easy.
 
 All of the images used were generated using Microsoft Copilot, including all the the individual weather icons and the background placeholder image.
 
+Copilot was also used to review working code in Javascript for refactoring, but each suggestion was reviewed and although some gave cleaner code, the outcome was not always successful and required in depth studying and testing, a lot of the suggestions looked nice, but were not functional and broke so were not implemented.
+
 ## Documents
 
 ### Wireframes
@@ -54,56 +56,54 @@ All of the images used were generated using Microsoft Copilot, including all the
 
 #### Colours
 
-//TODO
+//TODO - requires image of palette and why we chose these colours
 ![Coolors.co Colour Palette]()
 
 #### Typography
 
-//TODO
+//TODO - requires screenshot of google fonts chosen and reasoning
 ![Google Font Typography]()
 
 ### Testing & Validation
-- Code Validation 
+
+#### Code Validation
+
 All HTML and CSS code was validated using the W3C Markup Validation Service and W3C CSS Validation Service, respectively. The results are as follows:
 
 ### Initial HTML Verification index.html
-- Nine errors were found in the HTML code and corrected by line validation. All elements are properly nested and closed, ensuring a well-structured document.
 
-![Debug errors](assets/images/Debug%20errors.png)
+Nine errors were found in the HTML code and corrected by line validation. All elements are properly nested and closed, ensuring a well-structured document.
 
-![debug errors 1](assets/images/debug%20errors%201.png)
+![Debug errors](./assets/images/readme/Debug-errors.png)
+
+![debug errors continued](./assets/images/readme/debug-errors-1.png)
 
 ## After Debugging
 
-![fixed](assets/images/debug%20fixed.png)
+![fixed](./assets/images/readme/debug-fixed.png)
 
 ### CSS Verification of styles.css
 
-![CSS](assets/images/CSS%20validate.png)
-
-
-
-
-//TODO
-
-
-
-
-
+![CSS](./assets/images/readme/CSS-validate.png)
 
 #### Lighthouse tests
 
-//TODO
-![Lighthouse tests]()
+![Lighthouse tests](./assets/images/readme/Lighthouse-tests.png)
+
+Lighthouse tests initially were decent but an issue in best practices needing resolution was required due to the image source used as a placeholder.
+
+![Lighthouse tests after improvements](./assets/images/readme/Lighthouse-tests-post-improvement-to-weather-icon-placeholder-paths.png)
+
+After this was corrected we achieved 100% across the board for all lighthouse scores.
 
 #### WAVE accessibility tests
 
-//TODO
-![WAVE accessibility tests]()
+![WAVE accessibility tests](./assets/images/readme/Wave-test-results.png)
+Wave test results initially came back with a few warnings and an error on semantics, but these were easily resolved without affect to the look or operation of the site.
 
 ### Webpage preview
 
-//TODO
+//TODO - image of homepage, image of daily forecast, image of modal pop up
 
 ### Future Features
 
@@ -112,17 +112,16 @@ Here's a glimpse of what future releases of Weatherly would look like:
 - A feature where users can switch between saved locations in on click/tap
 - A feature which will display moonrise and moonset based on location, with the relevant moon phase icons
 - A dynamic background image/animcation that changes based on the weather conditions
-- Currently Weatherly has a link to the Met Office to provide weather warnings, future releases would ideally 
+- Currently Weatherly has a link to the Met Office to provide weather warnings, future releases would ideally
   include a standalone Weatherly Weather alerts feature
-- Using the OpenWeather API we were limited to a 5 day weekly forecast and a 3 hour daily forecast, in a future 
+- Using the OpenWeather API we were limited to a 5 day weekly forecast and a 3 hour daily forecast, in a future
 release we would look to source more accurate data so we could provide more detailed and accurate updates.
-- Finally, once the above features were implemented, creating a Weatherly App would be the long term goal. 
-
-//TODO
+- We would also like to implement the ability to find your location using postcode, utilising a postcode finder api that would complete the address for more accurate weather forecasting when the user is manually entering a location, instead of geolocation.
+- Finally, once the above features were implemented, creating a Weatherly App would be the long term goal.
 
 ### Credits
 
-//TODO
+//TODO - add anything missing - eg tools or technologies or people outside that helped!
 
 - [Google Fonts](https://fonts.google.com/) for typography.
 - [Coolors.co](https://coolors.co/) for palette selection.
@@ -132,3 +131,4 @@ release we would look to source more accurate data so we could provide more deta
 - [Microsoft Copilot](https://copilot.microsoft.com/) for image generation code assistance and code review.
 - [Bootstrap](https://getbootstrap.com/) for the framework to be built upon.
 - [Am I Responsive](https://ui.dev/amiresponsive) for the multi device image on this README.
+- Roo MacArthur for his help on directing our finding of a solution on an issue towards event listeners that enabled us to find the issue correctly and implement the fix independantly.
