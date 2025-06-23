@@ -1,27 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
 
-/* RALEWAY FOR HEADER ONLY */
-/* // <weight>: Use a value from 100 to 900
-// <uniquifier>: Use a unique and descriptive class name
-
-.raleway-<uniquifier> {
-  font-family: "Raleway", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-} */
-
-/* DM SANS FOR REST OF SITE */
-/* // <weight>: Use a value from 100 to 1000
-// <uniquifier>: Use a unique and descriptive class name
-
-.dm-sans-<uniquifier> {
-  font-family: "DM Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-} */
-
 :root {
     --header-font: "Raleway", sans-serif;
     --body-font: "DM Sans", sans-serif;
@@ -35,7 +13,7 @@ body {
 }
 h1 {
     font-family: var(--header-font);
-    color: #fafafa
+    color: #fafafa;
 }
 
 header {
@@ -59,7 +37,9 @@ main.flex-shrink-0 {
 #card3,
 #card4,
 #card5,
-#currentWeatherCard {
+#currentWeatherCard,
+#sub-header-current,
+#sub-header-forecast {
     display: none;
 }
 
@@ -68,19 +48,21 @@ main.flex-shrink-0 {
 #card3.show,
 #card4.show,
 #card5.show,
-#currentWeatherCard.show {
+#currentWeatherCard.show,
+#sub-header-current.show,
+#sub-header-forecast.show {
     display: block;
 }
 
 /* weather-icons */
 
 .weather-icon {
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-  border-radius: 16px;
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    border-radius: 16px;
 }
 
 /* Footer styles */
@@ -94,7 +76,6 @@ footer {
 
 .social-icons a {
     margin: 0 10px;
-    
     color: white;
 }
 
