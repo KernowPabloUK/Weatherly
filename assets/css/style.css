@@ -36,7 +36,17 @@ body {
 h1 {
     font-family: var(--header-font);
     color: #fafafa
+    
 }
+#geoLocationButton {
+    background-color:whitesmoke;
+    color:black
+}
+#submit {
+    background-color: white;
+    color: black;
+}
+
 
 header {
     background-color: var(--nighttime);
@@ -44,6 +54,14 @@ header {
     padding: 1rem;
     text-align: center;
     font-size: 1.5rem;
+}
+h1.my-4 { 
+    font-size: 60px;
+    font-weight: 550;
+}
+#geoLocationButton {
+    background-color:whitesmoke;
+    color:black
 }
 
 #card1,
