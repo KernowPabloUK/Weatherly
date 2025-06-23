@@ -97,6 +97,8 @@ document.addEventListener("DOMContentLoaded", function () {
     //#endregion
 
     //#region  Event Handlers
+    setForecastContainerHeight();
+    window.addEventListener('resize', setForecastContainerHeight);
     geoLocationButton.addEventListener("click", getLocation);
     locationInput.addEventListener("keydown", function(event) {
         if (event.key === "Enter") {
@@ -112,6 +114,17 @@ document.addEventListener("DOMContentLoaded", function () {
     //#endregion
 
     //#region Functions
+    function setForecastContainerHeight() {
+        const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+        const footerHeight = document.querySelector('footer')?.offsetHeight || 0;
+        const forecastContainer = document.getElementById('forecast-container');
+        if (!forecastContainer) return;
+
+        const availableHeight = window.innerHeight - headerHeight - footerHeight;
+        forecastContainer.style.minHeight = `${availableHeight}px`;
+        forecastContainer.style.maxHeight = `${availableHeight}px`;
+    }
+
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
