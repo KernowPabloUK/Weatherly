@@ -114,7 +114,7 @@ footer {
 }
 
 .social-icons a:hover {
-    color: black; /* Change color on hover */
+    color: var(--blue-skies); /* Change color on hover */
 }
 
 /* Placeholder Image */
