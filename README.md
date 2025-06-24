@@ -8,8 +8,7 @@ Authors: Paul Morgan, David Noble, Nadeem Sardar, Josh Thould
 
 ## Description
 
-Weatherly is an easy to use weather app that provides the user with current and future weather information for locations around the globe. The site utilises the
-openweathermap API to provide useful data for a location provided by the user.
+Weatherly is an easy to use weather app that provides the user with current and future weather information for locations around the globe. The site utilises the openweathermap API to provide useful data for a location provided by the user.
 
 ## Features
 
@@ -71,14 +70,17 @@ Copilot was also used to review working code in Javascript for refactoring, but 
 #### Colours
 
 We used Coolors to select colours that represented the British Weather and gave good definition and clarity to the webpage.
+
 ![Coolors.co Colour Palette](./assets/images/readme/Coolors-Palette.png)
 
 #### Typography
 
 We utilised Google Fonts to select the typography of the site, we chose Raleway for the Header after creating our sites name as we liked the style of the W that gave a uniqueness that could be associated with the site and our brand, we then utilised this to also create our favicon for a seamless design across the site.
+
 ![Google Font Typography - Raleway](./assets/images/readme/Google-Font-Raleway.png)
 
 We also chose DM Sans for our body font for all other assets and elements as we felt that it gave a professional, clear and concise appearance to the site, without being too 'strict', making the information feel reliable, but also with a gentle touch.
+
 ![Google Font Typography - DM Sans](./assets/images/readme/Google-font-DMSans.png)
 
 ### Testing & Validation
@@ -87,7 +89,7 @@ We also chose DM Sans for our body font for all other assets and elements as we 
 
 All HTML and CSS code was validated using the W3C Markup Validation Service and W3C CSS Validation Service, respectively. The results are as follows:
 
-### Initial HTML Verification index.html
+#### Initial HTML Verification index.html
 
 Nine errors were found in the HTML code and corrected by line validation. All elements are properly nested and closed, ensuring a well-structured document.
 
@@ -95,11 +97,11 @@ Nine errors were found in the HTML code and corrected by line validation. All el
 
 ![Debug errors continued](./assets/images/readme/Debug-errors-1.png)
 
-## After Debugging
+#### After Debugging
 
 ![fixed](./assets/images/readme/debug-fixed.png)
 
-### CSS Verification of styles.css
+#### CSS Verification of styles.css
 
 ![CSS](./assets/images/readme/CSS-validate.png)
 
@@ -116,20 +118,25 @@ After this was corrected we achieved 100% across the board for all lighthouse sc
 #### WAVE accessibility tests
 
 ![WAVE accessibility tests](./assets/images/readme/Wave-test-results.png)
+
 Wave test results initially came back with a few warnings and an error on semantics, but these were easily resolved without affect to the look or operation of the site.
 
 ### Webpage preview
 
-Homepage
+#### Homepage
+
 ![Homepage](./assets/images/readme/homepage.png)
 
-Desktop View of the forecast page
+#### Desktop View of the forecast page
+
 ![Forecast - Desktop View](./assets/images/readme/forecast-page-desktop.png)
 
-Mobile/Tablet View of the forecast page
+#### Mobile/Tablet View of the forecast page
+
 ![Forecast - Mobile/Tablet View](./assets/images/readme/forecast-page-mobile-tablet.png)
 
-The 3 Hourly Forecast Modal
+#### The 3 Hourly Forecast Modal
+
 ![3 Hourly Forecast Modal View](./assets/images/readme/hourly-modal.png)
 
 ### Future Features
@@ -146,7 +153,7 @@ Here's a glimpse of what future releases of Weatherly would look like:
 
 ### Credits
 
-- [Open Weather](https://openweathermap.org/api) for the 5 day / 3 Hour Forecast API and the Current Weather API and for making them free!
+- [Open Weather](https://openweathermap.org/api) for the 5 day / 3 Hour Forecast API and the Current Weather API and for making the data free to access!
 - [Google Fonts](https://fonts.google.com/) for typography.
 - [Coolors.co](https://coolors.co/) for palette selection.
 - [Font Awesome](https://fontawesome.com/) for icons used within the website.
