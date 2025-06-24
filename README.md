@@ -117,7 +117,17 @@ Wave test results initially came back with a few warnings and an error on semant
 
 ### Webpage preview
 
-//TODO - image of homepage, image of daily forecast, image of modal pop up
+Homepage
+![Homepage](./assets/images/readme/homepage.png)
+
+Desktop View of the forecast page
+![Forecast - Desktop View](./assets/images/readme/forecast-page-desktop.png)
+
+Mobile/Tablet View of the forecast page
+![Forecast - Mobile/Tablet View](./assets/images/readme/forecast-page-mobile-tablet.png)
+
+The 3 Hourly Forecast Modal
+![3 Hourly Forecast Modal View](./assets/images/readme/hourly-modal.png)
 
 ### Future Features
 
@@ -126,8 +136,7 @@ Here's a glimpse of what future releases of Weatherly would look like:
 - A feature where users can switch between saved locations in on click/tap
 - A feature which will display moonrise and moonset based on location, with the relevant moon phase icons
 - A dynamic background image/animcation that changes based on the weather conditions
-- Currently Weatherly has a link to the Met Office to provide weather warnings, future releases would ideally
-  include a standalone Weatherly Weather alerts feature
+- Currently Weatherly has a link to the Met Office to provide weather warnings, future releases would ideally include a standalone Weatherly Weather alerts feature
 - Using the OpenWeather API we were limited to a 5 day weekly forecast and a 3 hour daily forecast, in a future
 release we would look to source more accurate data so we could provide more detailed and accurate updates.
 - We would also like to implement the ability to find your location using postcode, utilising a postcode finder api that would complete the address for more accurate weather forecasting when the user is manually entering a location, instead of geolocation.
@@ -145,4 +154,4 @@ release we would look to source more accurate data so we could provide more deta
 - [Microsoft Copilot](https://copilot.microsoft.com/) for image generation code assistance and code review.
 - [Bootstrap](https://getbootstrap.com/) for the framework to be built upon.
 - [Am I Responsive](https://ui.dev/amiresponsive) for the multi device image on this README.
-- Roo MacArthur for his help on directing our finding of a solution on an issue towards event listeners that enabled us to find the issue correctly and implement the fix independantly.
+- [Roo MacArthur](https://github.com/roomacarthur) for his help on directing our finding of a solution on a large issue     towards event listeners that enabled us to then find the issue correctly and implement the fix independantly.
