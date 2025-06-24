@@ -167,9 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const country = dataGeo[0].country ? `, ${dataGeo[0].country}` : "";
             locationInput.value = city + country;
             }
-        } catch (e) {
-            // Ignore errors, keep original input
-        }
+        } catch (e) {}
         if (!url) {
             alert("Location not found");
             return;
