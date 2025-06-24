@@ -19,11 +19,6 @@ body {
     font-family: var(--body-font);
 }
 
-#geoLocationButton {
-    background-color: whitesmoke;
-    color: black;
-}
-
 #submit {
     background-color: white;
     color: black;

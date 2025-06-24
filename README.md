@@ -8,8 +8,7 @@ Authors: Paul Morgan, David Noble, Nadeem Sardar, Josh Thould
 
 ## Description
 
-Weatherly is an easy to use weather app that provides the user with current and future weather information for locations around the globe. The site utilises the
-openweathermap API to provide useful data for a location provided by the user.
+Weatherly is an easy to use weather app that provides the user with current and future weather information for locations around the globe. The site utilises the openweathermap API to provide useful data for a location provided by the user.
 
 ## Features
 
@@ -70,13 +69,19 @@ Copilot was also used to review working code in Javascript for refactoring, but 
 
 #### Colours
 
-//TODO - requires image of palette and why we chose these colours
-![Coolors.co Colour Palette]()
+We used Coolors to select colours that represented the British Weather and gave good definition and clarity to the webpage.
+
+![Coolors.co Colour Palette](./assets/images/readme/Coolors-Palette.png)
 
 #### Typography
 
-//TODO - requires screenshot of google fonts chosen and reasoning
-![Google Font Typography]()
+We utilised Google Fonts to select the typography of the site, we chose Raleway for the Header after creating our sites name as we liked the style of the W that gave a uniqueness that could be associated with the site and our brand, we then utilised this to also create our favicon for a seamless design across the site.
+
+![Google Font Typography - Raleway](./assets/images/readme/Google-Font-Raleway.png)
+
+We also chose DM Sans for our body font for all other assets and elements as we felt that it gave a professional, clear and concise appearance to the site, without being too 'strict', making the information feel reliable, but also with a gentle touch.
+
+![Google Font Typography - DM Sans](./assets/images/readme/Google-font-DMSans.png)
 
 ### Testing & Validation
 
@@ -84,19 +89,19 @@ Copilot was also used to review working code in Javascript for refactoring, but 
 
 All HTML and CSS code was validated using the W3C Markup Validation Service and W3C CSS Validation Service, respectively. The results are as follows:
 
-### Initial HTML Verification index.html
+#### Initial HTML Verification index.html
 
 Nine errors were found in the HTML code and corrected by line validation. All elements are properly nested and closed, ensuring a well-structured document.
 
 ![Debug errors](./assets/images/readme/Debug-errors.png)
 
-![debug errors continued](./assets/images/readme/debug-errors-1.png)
+![Debug errors continued](./assets/images/readme/Debug-errors-1.png)
 
-## After Debugging
+#### After Debugging
 
 ![fixed](./assets/images/readme/debug-fixed.png)
 
-### CSS Verification of styles.css
+#### CSS Verification of styles.css
 
 ![CSS](./assets/images/readme/CSS-validate.png)
 
@@ -113,20 +118,25 @@ After this was corrected we achieved 100% across the board for all lighthouse sc
 #### WAVE accessibility tests
 
 ![WAVE accessibility tests](./assets/images/readme/Wave-test-results.png)
+
 Wave test results initially came back with a few warnings and an error on semantics, but these were easily resolved without affect to the look or operation of the site.
 
 ### Webpage preview
 
-Homepage
+#### Homepage
+
 ![Homepage](./assets/images/readme/homepage.png)
 
-Desktop View of the forecast page
+#### Desktop View of the forecast page
+
 ![Forecast - Desktop View](./assets/images/readme/forecast-page-desktop.png)
 
-Mobile/Tablet View of the forecast page
+#### Mobile/Tablet View of the forecast page
+
 ![Forecast - Mobile/Tablet View](./assets/images/readme/forecast-page-mobile-tablet.png)
 
-The 3 Hourly Forecast Modal
+#### The 3 Hourly Forecast Modal
+
 ![3 Hourly Forecast Modal View](./assets/images/readme/hourly-modal.png)
 
 ### Future Features
@@ -137,13 +147,13 @@ Here's a glimpse of what future releases of Weatherly would look like:
 - A feature which will display moonrise and moonset based on location, with the relevant moon phase icons
 - A dynamic background image/animcation that changes based on the weather conditions
 - Currently Weatherly has a link to the Met Office to provide weather warnings, future releases would ideally include a standalone Weatherly Weather alerts feature
-- Using the OpenWeather API we were limited to a 5 day weekly forecast and a 3 hour daily forecast, in a future
-release we would look to source more accurate data so we could provide more detailed and accurate updates.
+- Using the OpenWeather API we were limited to a 5 day weekly forecast and a 3 hour daily forecast, in a future release we would look to source more accurate data so we could provide more detailed and accurate updates.
 - We would also like to implement the ability to find your location using postcode, utilising a postcode finder api that would complete the address for more accurate weather forecasting when the user is manually entering a location, instead of geolocation.
 - Finally, once the above features were implemented, creating a Weatherly App would be the long term goal.
 
 ### Credits
 
+- [Open Weather](https://openweathermap.org/api) for the 5 day / 3 Hour Forecast API and the Current Weather API and for making the data free to access!
 - [Google Fonts](https://fonts.google.com/) for typography.
 - [Coolors.co](https://coolors.co/) for palette selection.
 - [Font Awesome](https://fontawesome.com/) for icons used within the website.
@@ -152,4 +162,4 @@ release we would look to source more accurate data so we could provide more deta
 - [Microsoft Copilot](https://copilot.microsoft.com/) for image generation code assistance and code review.
 - [Bootstrap](https://getbootstrap.com/) for the framework to be built upon.
 - [Am I Responsive](https://ui.dev/amiresponsive) for the multi device image on this README.
-- [Roo MacArthur](https://github.com/roomacarthur) for his help on directing our finding of a solution on a large issue     towards event listeners that enabled us to then find the issue correctly and implement the fix independantly.
+- [Roo MacArthur](https://github.com/roomacarthur) for his help on directing our finding of a solution on a large issue towards event listeners that enabled us to then find the issue correctly and implement the fix independantly.
