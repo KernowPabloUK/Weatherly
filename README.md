@@ -144,6 +144,7 @@ release we would look to source more accurate data so we could provide more deta
 
 ### Credits
 
+- [Open Weather](https://openweathermap.org/api) for the 5 day / 3 Hour Forecast API and the Current Weather API and for making them free!
 - [Google Fonts](https://fonts.google.com/) for typography.
 - [Coolors.co](https://coolors.co/) for palette selection.
 - [Font Awesome](https://fontawesome.com/) for icons used within the website.
