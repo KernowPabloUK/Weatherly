@@ -17,7 +17,7 @@ The sites header section features a text box for user input. There is also the o
 
 ![Header section](assets/images/readme/feature-header.png)
 
-A card featuring the current weather using data from Openweathermap's "Current Weather Data" API is shown upon submitting a location. 
+A card featuring the current weather using data from Openweathermap's "Current Weather Data" API is shown upon submitting a location.
 
 ![Current weather](assets/images/readme/feature-current.png)
 
@@ -143,8 +143,6 @@ release we would look to source more accurate data so we could provide more deta
 - Finally, once the above features were implemented, creating a Weatherly App would be the long term goal.
 
 ### Credits
-
-//TODO - add anything missing - eg tools or technologies or people outside that helped!
 
 - [Google Fonts](https://fonts.google.com/) for typography.
 - [Coolors.co](https://coolors.co/) for palette selection.
