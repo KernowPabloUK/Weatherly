@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 currentWeatherCard.querySelector(`.wind-speed`)
                     .innerHTML = `Wind Speed<br /><strong>${(data.wind.speed * 2.23694).toFixed(1)} mph</strong>`;
             } else {
-                alert("Location not found");;
+                alert("Location not found");
             }
         } catch (error) {
             alert("Error fetching data");
@@ -275,7 +275,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         .innerHTML = `Wind Speed<br /><strong>${(data.list[i * 8].wind.speed * 2.23694).toFixed(1)} mph</strong>`;
                 }
             } else {
-                alert("Location not found");;
+                alert("Location not found");
             }
         } catch (error) {
             alert("Error fetching data");
